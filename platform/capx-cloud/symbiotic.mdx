@@ -1,0 +1,43 @@
+---
+title: 'Symbiotic Protocol'
+icon: 'spider'
+description: ""
+sidebarTitle: 'Symbiotic Integration'
+---
+
+To support the economic backbone of this decentralized ecosystem, **Capx Cloud integrates with [Symbiotic](https://symbiotic.fi)-a shared security protocol designed to provide flexible (re)staking infrastructure**. Symbiotic simplifies the sourcing of economic security for networks like Capx Cloud by offering a framework where operators and stakers can commit collateral to multiple networks at once, thereby increasing overall capital efficiency.
+
+At its core, Symbiotic streamlines the process of operator registration, stake management, and slashing adjudication. Instead of custom solutions for each network, **Symbiotic presents a universal, permissionless layer where participants can freely allocate capital, register as operators, and interact with multiple networks in parallel.**
+
+* **(Re)Staking Infrastructure**: Symbiotic supports repurposing of staked assets (e.g., from Ethereum validators) for additional use cases, like providing security to Capx Cloud.
+
+* **Vaults and Operator Registries**: Operators register once in Symbiotic’s OperatorRegistry and can then serve multiple networks. Vaults serve as stake pools, holding collateral and enforcing withdrawal and epoch rules.
+
+* **Resolvers for Dispute Resolution**: Should conflicts arise over slashing incidents, resolvers—neutral arbitration entities—step in to ensure fairness, reducing the likelihood of arbitrary or malicious penalties.
+
+## Symbiotic Components
+The Symbiotic protocol introduces three key components that are essential for the operation and security of Capx Cloud:
+
+<CardGroup cols={3}>
+  <Card
+    title="Vaults"
+    href="/capx-superapp"
+    icon="vault"
+  >
+    These are the staking pools where operators deposit their collateral. They enforce rules for withdrawals and epochs, ensuring that the staked assets are managed securely and transparently.
+  </Card>
+  <Card
+    title="Operators"
+    href="/capx-chain"
+    icon="people-group"
+  >
+    These are the individuals or entities that provide the infrastructure for Capx Cloud. They register once in the Symbiotic OperatorRegistry and can then serve multiple networks, enhancing their operational efficiency.
+  </Card>
+  <Card
+    title="Resolvers"
+    href="/capx-cloud"
+    icon="users" 
+  >
+    These are neutral arbitration entities that step in to resolve disputes, particularly in cases of slashing incidents. They ensure that penalties are fair and not arbitrary or malicious. 
+  </Card>
+</CardGroup>

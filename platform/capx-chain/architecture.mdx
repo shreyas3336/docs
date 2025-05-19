@@ -1,0 +1,64 @@
+---
+title: 'Architecture'
+icon: 'sitemap'
+description: "Capx Chain's architecture is layered to optimize for security, scalability, and developer experience, leveraging the strengths of the Arbitrum Nitro stack."
+sidebarTitle: 'Architecture'
+---
+
+<Info>
+    Arbitrum Nitro is a technology stack that powers Arbitrum's Layer 2 (L2) scaling solutions for Ethereum. It's designed to provide faster and cheaper transactions while leveraging Ethereum's security. 
+</Info>
+
+<img
+  className="hidden dark:block"
+  src="/images/Capx Chain Arch.png"
+  alt="Capx Chain Architecture"
+  about='Capx Chain Architecture'
+/>
+<img
+  className="block dark:hidden"
+  src="/images/Capx Chain Arch.png"
+  alt="Capx Chain Architecture"
+  about='Capx Chain Architecture'
+/>
+
+Capx Chain operates as an optimistic rollup. This means it "optimistically" assumes all transactions are valid and processes them off-chain on its Layer 2. It then periodically submits batches of these transactions (as compressed calldata) to the Ethereum Layer 1 (L1) for final settlement. If a fraudulent transaction is suspected, a dispute resolution process (fraud proof) is initiated. Nitro features interactive fraud proofs, which are designed to be more efficient by re-executing only the disputed part of a transaction.
+
+**Key Architectural Layers & Components:**
+
+**1. Ethereum Layer 1 (The Foundation)**
+
+*   **Consensus Layer (Leveraged by Capx):** Capx Chain relies on the underlying Ethereum blockchain for its security and finality. It doesn't have its own separate consensus mechanism for L2 state in the same way a Layer 1 blockchain does. Instead, the validity of Capx Chain's state is ultimately guaranteed by the ability to prove it on Ethereum L1.
+*   **Capx L1 Smart Contracts:** These are crucial contracts deployed on Ethereum that manage the rollup protocol. Key contracts include:
+    *   **Inbox Contract (SequencerInbox):** This contract receives batches of ordered and compressed transactions from the L2 Sequencer.
+    *   **Outbox Contract:** Facilitates communication and asset transfers from Capx Chain L2 back to Ethereum L1.
+    *   **Rollup Core Contracts (e.g., RollupCore.sol):** Manage the state of the rollup, track assertions made by validators about the L2 state, and facilitate the fraud proof mechanism.
+    *   **Bridge Contracts:** Enable the transfer of assets (ETH and ERC-20 tokens) between Ethereum L1 and Capx Chain L2.
+
+**2. Capx Chain Layer 2 (The Scaling Engine)**
+
+*   **Networking Layer (L2):**
+    *   **Sequencer:** This is a key component in Capx Chain. The Sequencer orders transactions, compresses them, and posts these batches as calldata to the Ethereum L1 Inbox contract. It provides users with fast, "soft" finality (confirmation within 1-2 seconds).
+    *   **Validators/Full Nodes (L2):** These nodes execute all L2 transactions and can challenge the Sequencer's assertions if they detect an incorrect state transition. They play a crucial role in security by observing the chain and initiating fraud proofs if necessary.
+    *   **RPC Endpoints:** Allow users and dApps to interact with the Capx Chain network (submit transactions, query state, etc.).
+
+*   **Execution Layer (L2):** This is where smart contracts are executed on Capx Chain.
+    *   **Arbitrum Virtual Machine (AVM) - Powered by Nitro:** Nitro significantly upgraded Arbitrum's execution environment. A key innovation is compiling the core of Geth (Go Ethereum, the most popular Ethereum client) directly into Arbitrum. This provides high EVM compatibility, meaning most Ethereum smart contracts can run on Capx Chain with minimal to no changes.
+    *   **WASM (WebAssembly):** Nitro utilizes WASM for its fraud proofs. The L2 Capx Chain engine can be written and compiled using standard languages, and for fraud proofs, the relevant code (specifically the State Transition Function) is compiled to WASM. This separation of execution (native code for speed) and proving (WASM for verifiability and portability) is a core design principle.
+    *   **ArbOS:** This is a custom operating system for the L2 chain. It handles L2-specific functionalities such as calldata decompression, gas fee management, cross-chain communication between L1 and L2, and managing smart contract lifecycles. The Nitro version of ArbOS was rewritten in Go.
+    *   **State Transition Function (STF):** This deterministic function defines how the state of the L2 chain changes in response to transactions. It's compiled into native machine code for fast execution by Nitro nodes and into WASM for fraud proofs.
+    *   **Stylus:** An upgrade that allows developers to write smart contracts in languages like Rust and C++ that compile to WASM, in addition to Solidity for the EVM. These WASM contracts can interoperate with EVM contracts.
+
+*   **Key Built-in Contracts/Modules (L2):**
+    *   **Token Bridging Contracts (L2 Side):** Work in conjunction with the L1 bridge contracts to facilitate asset movement.
+
+
+**Interactions & Flows:**
+
+1.  **Transaction Submission:** Users submit transactions to an Capx Chain L2 node (often the Sequencer).
+2.  **Sequencing & Batching:** The Sequencer orders transactions, compresses them, and posts a batch to the L1 Inbox contract.
+3.  **L2 Execution:** Capx Chain nodes execute the transactions using the Nitro runtime (Geth core + ArbOS).
+4.  **State Assertion:** Validators (or the Sequencer acting as an asserter) post assertions about the new L2 state to the L1 Rollup Core contracts.
+5.  **Challenge Period & Fraud Proofs:** There's a period during which any validator can challenge an assertion if they believe it's incorrect. If challenged, an interactive fraud proof process occurs, re-executing disputed parts in WASM on L1 to determine the correct outcome.
+6.  **Finality on L1:** Once a state assertion is confirmed on L1 (either unchallenged after the dispute period or successfully defended through a fraud proof), it's considered final.
+7.  **Withdrawals (L2 to L1):** Users initiate withdrawals on L2, which are then processed through the Outbox contract on L1 after a delay period (to allow for fraud proofs).

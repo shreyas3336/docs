@@ -1,0 +1,85 @@
+---
+title: 'Consensus Mechanism'
+icon: 'group-arrows-rotate'
+description: "Capx Chain, utilizing the Arbitrum Nitro stack, achieves consensus through an optimistic rollup mechanism. This means L2 (Capx Chain) transactions are executed and batched with the optimistic assumption of validity for speed and low cost. True finality and security are derived from the underlying L1 (Ethereum) through a system of state assertions and fraud proofs."
+sidebarTitle: 'Consensus Mechanism'
+---
+
+<img
+  className="hidden dark:block"
+  src="/images/Capx Chain Consensus.png"
+  alt="Capx Chain Consensus"
+  about='Capx Chain Consensus'
+/>
+<img
+  className="block dark:hidden"
+  src="/images/Capx Chain Consensus.png"
+  alt="Capx Chain Consensus"
+  about='Capx Chain Consensus'
+/>
+
+<Accordion title="Capx Chain Consensus Flow">
+    (L2: Capx Chain Execution & Proposal)
+    <p>
+        1.  `User ---sends L2 Tx---> [Capx Chain Sequencer]`
+        2.  `[Sequencer]`
+            *   Orders transactions.
+            *   Executes transactions, computes new L2 state.
+            *   Creates a `[Transaction Batch]` and a new `[L2 State Root_S]`.
+            *   Provides `---Soft Confirmation---> User`.
+        3.  `[Sequencer] ---submits Tx Batch (calldata)---> [L1 Ethereum: Inbox Contract]`
+            *   *Data is now anchored on L1, ensuring Data Availability.*
+    </p>
+    (L1: Assertion & Challenge Period)
+    <p>
+        4.  `[Asserter (e.g., Sequencer)] ---posts Assertion(L2 State Root_S)---> [L1 Ethereum: Rollup Core Contract]`
+        5.  `[Rollup Core Contract] ---initiates Challenge Period (e.g., 7 days)---`
+            *   *During this period, any validator can challenge the assertion.*
+            *   *Validators can independently verify the state root by executing the transactions in the batch.*
+            *   *The challenge period allows for a dispute resolution process if discrepancies arise.*
+    </p>
+    (L2 & L1: Validation & Potential Challenge)
+    <p>
+        6.  `[Capx Chain Validators (L2 Full Nodes)]`:
+            *   Fetch `[Transaction Batch]` from L1 Inbox.
+            *   Independently execute transactions, compute their own `[L2 State Root_V]`.
+            *   Compare `[L2 State Root_V]` with asserted `[L2 State Root_S]` on L1.
+
+        7.  **Decision Point during Challenge Period:**
+            *   **IF `State Root_V == State Root_S` (Happy Path):**
+                *   Validators take no action against this assertion.
+                *   `IF Challenge Period Ends without successful challenge:`
+                    *   `[L1 Ethereum: Rollup Core Contract] ---confirms Assertion---> [L2 State Root_S is Finalized]` ✅
+                    *   **This is L1-Secured Finality for the L2 Block.**
+            *   **IF `State Root_V != State Root_S` (Dispute Path):**
+                *   `[A Challenging Validator] ---initiates Fraud Proof against Assertion(L2 State Root_S)---> [L1 Ethereum: Rollup Core Contract]`
+                *   **Fraud Proof Process (Interactive Bisection in Nitro):**
+                    *   The contract facilitates an interactive game between the Asserter and Challenger.
+                    *   They narrow down the dispute to a single differing instruction in the L2 execution.
+                    *   This single instruction is then executed via a WASM module on L1 (the `OneStepProof` mechanism) to determine the correct state transition.
+                    *   `IF Challenger Wins:` Fraudulent assertion is rejected, Challenger is rewarded, Asserter is penalized. The correct state can be asserted.
+                    *   `IF Asserter Wins:` Challenge is dismissed, Challenger may lose their stake. Assertion proceeds towards finalization.
+    </p>
+</Accordion>
+
+**Key Components & Roles in Consensus:**
+
+1.  **Sequencer (L2):**
+    *   **Role:** A designated node (or a decentralized set of nodes in future iterations of Arbitrum technology) responsible for accepting user transactions, determining their order, executing them, and bundling them into compressed batches.
+    *   **Block Proposal (L2):** The Sequencer effectively proposes L2 "blocks" or batches by creating an ordered sequence of transactions and calculating the resulting state transition. This provides users with fast, sub-second "soft" confirmations or pre-confirmations.
+    *   **L1 Interaction:** Submits these transaction batches as `calldata` to an `Inbox` contract on Ethereum L1. This ensures data availability.
+
+2.  **Asserters (Typically includes the Sequencer, can be other permissioned L2 Nodes):**
+    *   **Role:** After L2 blocks are processed and data is posted to L1, an Asserter posts a cryptographic commitment (a state root) of Capx Chain's new state to the `Rollup Core` contract on Ethereum L1. This is an "assertion" about the outcome of executing a specific batch of L2 transactions.
+    *   **State Finalization (Path to):** These assertions initiate a challenge period on L1.
+
+3.  **Validators (Full L2 Nodes):**
+    *   **Role:** These nodes independently execute all L2 transactions from the data available on the L1 `Inbox`. They compute their own version of the L2 state root.
+    *   **Verification:** They compare their calculated state root against the state root asserted on L1 by the Asserter.
+    *   **Challenge Initiation:** If a Validator detects a discrepancy (i.e., the asserted state root is incorrect according to their computation), they can initiate a fraud proof challenge on L1 during the challenge period.
+
+4.  **Ethereum L1 Contracts (e.g., `Rollup Core`, `Inbox`, `Bridge`):**
+    *   **Role:** These smart contracts on Ethereum are the arbiters of truth for Capx Chain.
+        *   `Inbox`: Receives transaction data from the Sequencer.
+        *   `Rollup Core`: Manages the state of the rollup, tracks assertions, and facilitates the fraud proof mechanism.
+    *   **Finality:** L1 provides the ultimate settlement and finality. An L2 state root is considered final once its assertion has survived the challenge period on L1, or a fraud proof has successfully defended it (or corrected a fraudulent one).
