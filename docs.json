@@ -50,15 +50,15 @@
                     "group": "Core Concepts",
                     "icon": "brain",
                     "pages": [
-                      "platform/capx-cloud/architecture",
-                      "platform/capx-cloud/infrastructure",
-                      "platform/capx-cloud/symbiotic",
-                      "platform/capx-cloud/vaults",
-                      "platform/capx-cloud/operators",
-                      "platform/capx-cloud/performer",
-                      "platform/capx-cloud/attestor",
-                      "platform/capx-cloud/delegator",
-                      "platform/capx-cloud/resolver"
+                      "platform/capx-cloud/core-concepts/architecture",
+                      "platform/capx-cloud/core-concepts/infrastructure",
+                      "platform/capx-cloud/core-concepts/symbiotic",
+                      "platform/capx-cloud/core-concepts/vaults",
+                      "platform/capx-cloud/core-concepts/operators",
+                      "platform/capx-cloud/core-concepts/performer",
+                      "platform/capx-cloud/core-concepts/attestor",
+                      "platform/capx-cloud/core-concepts/delegator",
+                      "platform/capx-cloud/core-concepts/resolver"
                     ]
                   },
                   "platform/capx-cloud/getting-started"
@@ -90,18 +90,76 @@
         "tab": "Capx AI Guides",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "Developer Guides",
+            "icon": "code",
             "pages": [
-              "api-reference/introduction"
+              "guides/developer/getting-started",
+              {
+                "group": "Key Concepts",
+                "icon": "lightbulb",
+                "pages": [
+                  "guides/developer/key-concepts/cloud-hosting-model",
+                  "guides/developer/key-concepts/agent-tokenization",
+                  "guides/developer/key-concepts/agent-lifecycle",
+                  "guides/developer/key-concepts/security-model"
+                ]
+              },
+              "guides/developer/requirements",
+              {
+                "group": "Examples",
+                "icon": "signs-post",
+                "pages": [
+                  "guides/developer/examples/chat-agent"
+                ]
+              },
+              {
+                "group": "References",
+                "icon": "book",
+                "pages": [
+                  "guides/developer/references/chain",
+                  "guides/developer/references/cloud"
+                ]
+              }
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "Operator Guides",
+            "icon": "address-book",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "guides/operator/overview",
+              "guides/operator/lifecycle",
+              {
+                "group": "Setup",
+                "icon": "gears",
+                "pages": [
+                  "guides/operator/setup/requirements",
+                  {
+                    "group": "Registration",
+                    "icon": "pen-nib",
+                    "pages": [
+                      "guides/operator/setup/register/overview",
+                      "guides/operator/setup/register/testnet",
+                      "guides/operator/setup/register/mainnet"
+                    ]
+                  },
+                  {
+                    "group": "Node Setup",
+                    "icon": "screwdriver-wrench",
+                    "pages": [
+                      "guides/operator/setup/node/testnet",
+                      "guides/operator/setup/node/mainnet"
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "References",
+                "icon": "book",
+                "pages": [
+                  "guides/operator/references/network-details"
+                ]
+              },
+              "guides/operator/faq"
             ]
           }
         ]

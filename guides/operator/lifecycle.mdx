@@ -1,0 +1,67 @@
+---
+title: "Operator Lifecycle: From Registration to Decommissioning"
+icon: "arrows-spin"
+description: ""
+sidebarTitle: "Operator Lifecycle"
+---
+
+The Capx Cloud Network Operator Lifecycle outlines the end-to-end journey an entity undertakes to provide services within the Capx Cloud Network, from initial engagement and setup, through active operation and reward generation, to potential contingencies like slashing, and eventual exit from the network. This lifecycle is deeply integrated with Symbiotic's shared security mechanisms for staking, operator registration, and slashing.
+
+<img
+  className="hidden dark:block"
+  src="/images/Operator Lifecycle.png"
+  alt="Operator Lifecycle"
+  about='Operator Lifecycle'
+/>
+<img
+  className="block dark:hidden"
+  src="/images/Operator Lifecycle.png"
+  alt="Operator Lifecycle"
+  about='Operator Lifecycle'
+/>
+
+## **Operator Lifecycle Stages:**
+
+The operator's journey within the Capx Cloud Network is a structured process, encompassing several distinct phases and key milestones. Each stage involves specific actions, responsibilities, and interactions with both the Capx platform and the underlying Symbiotic protocol.
+
+### **Stage I. Onboarding and Initial Setup Phase:**
+
+1.  **Discovery and Preparation :**
+    *   The lifecycle commences with the **Discovery** phase, where a potential operator learns about the Capx Cloud Network, its service requirements (e.g., AI agent hosting, computation), and the economic incentives.
+    *   Following this, the **Preparation** stage involves acquiring the necessary hardware (CPU/GPU, storage, etc.) and establishing a suitable technical environment as per Capx specifications.
+
+2.  **Symbiotic Ecosystem Integration :**
+    *   **Operator Registration (Symbiotic):** The operator formally registers their address with Symbiotic's `OperatorRegistry`. This is a crucial step for identification within the Symbiotic shared security ecosystem, enabling interaction with multiple services.
+    *   **Vault Opt-In (Symbiotic):** The operator then opts into one or more Symbiotic Vaults. These vaults are smart contracts managing staked collateral. This step allows operators to associate their registered identity with specific collateral pools.
+    *   **Network Opt-In (Symbiotic):** Subsequently, the operator opts into the Capx Cloud Network via Symbiotic's `NetworkOptInService`. This explicitly signals their intent to provide services to Capx and makes them eligible for stake allocation from the chosen vaults for this specific network.
+
+### **Stage II. Node Deployment and Activation Phase:**
+
+3.  **Capx Node Configuration :**
+    *   **Node Software Setup (Capx):** The operator installs and configures the proprietary node software provided by Capx Cloud. This software equips their hardware to perform tasks specific to the Capx Cloud Network.
+    *   **Node Sync (Capx):** The configured node then synchronizes with the Capx Cloud Network, downloading the latest state and data to ensure it's fully aligned and ready for participation.
+
+4.  **Stake Activation :**
+    *   With the operator registered and opted into both vaults and the Capx Cloud Network, and their node ready, staked collateral (either self-staked or delegated) is formally allocated or "activated" by vault managers for the operator's service to Capx. This live stake underpins the operator's economic commitment and becomes subject to network rules, including slashing.
+
+### **Stage III. Active Operational Phase:**
+
+5.  **Service Provision and Rewards :**
+    *   **Active Operation:** The operator's node actively provides the designated services to the Capx Cloud Network, such as hosting AI agents, performing computations, or participating in attestation. Consistent uptime and performance are paramount.
+    *   **Reward Accrual & Claiming:** For their contributions, operators accrue rewards (typically in $CAPX tokens), based on performance, uptime, and tasks completed. These rewards can then be claimed through network-defined mechanisms.
+
+6.  **Ongoing Maintenance:**
+    *   Operators are responsible for continuous **Maintenance and Upgrades** of their nodes. This includes applying software updates, monitoring performance, and ensuring hardware integrity to maintain service quality and avoid penalties. This forms a feedback loop back into Active Operation.
+
+### **Stage IV. Contingency Management and Offboarding Phase:**
+
+7.  **Slashing Events:**
+    *   **Slashing Event Trigger:** If an operator violates Service Level Agreements (SLAs), exhibits malicious behavior, or experiences significant downtime, a **Slashing Event** can be triggered by Capx's monitoring systems.
+    *   **Symbiotic Slashing Process:** The Capx middleware initiates a slashing request to the Slasher module of the relevant Symbiotic Vault. Symbiotic's protocol then processes this, potentially involving Resolvers for dispute arbitration.
+    *   **Outcome and Review:** If the slash is confirmed (**Slashed?**), a portion of the operator's stake is forfeited. The operator then undertakes a **Post-Slashing Review** to assess the damage and decide on **Recovery**. If recovery is pursued, it involves addressing the root cause and potentially restaking.
+
+8.  **Deregistration and Exit:**
+    *   Operators may voluntarily choose to leave the network, or be forced to exit. This **Deregistration** process involves signaling their intent to unstake.
+    *   Following an **Unbonding Period** (a security measure where funds may still be subject to slashing for past actions), the operator's collateral is fully released, and their **Exit is Complete**.
+
+This structured lifecycle, with its clear phases and integration of Symbiotic's cryptoeconomic mechanisms, aims to foster a reliable and secure network of operators dedicated to powering the Capx ecosystem.
