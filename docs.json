@@ -11,84 +11,96 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Capx AI Docs",
-        "groups": [
+        "tab": "👋 Welcome to Capx",
+        "icon": "home",
+        "pages": [
+          "welcome/welcome"
+        ]
+      },
+      {
+        "tab": "🧩 Capx Products",
+        "icon": "home",
+        "pages": [
+          "products/overview/introduction",
+          "products/overview/how-it-works",
+          "products/overview/system",
           {
-            "group": "Introduction",
+            "group": "Capx SuperApp",
+            "icon": "store",
             "pages": [
-              "introduction/welcome",
-              "introduction/core-concepts",
-              "introduction/getting-started"
+              "products/capx-superapp/introduction",
+              "products/capx-superapp/getting-started",
+              {
+                "group": "Core Concepts",
+                "icon": "brain",
+                "pages": [
+                  "products/capx-superapp/core-concepts/token-registry",
+                  "products/capx-superapp/core-concepts/trading-engine"
+                ]
+              },
+              {
+                "group": "Tutorials",
+                "icon": "user-graduate",
+                "pages": [
+                  "products/capx-superapp/tutorials/create-account",
+                  "products/capx-superapp/tutorials/manage-profile",
+                  "products/capx-superapp/tutorials/trade-ai-agent"
+                ]
+              },
+              "products/capx-superapp/faq"
             ]
           },
           {
-            "group": "Platform",
+            "group": "Capx Chain",
+            "icon": "cubes",
             "pages": [
+              "products/capx-chain/introduction",
               {
-                "group": "Capx Chain",
-                "icon": "cubes",
+                "group": "Core Concepts",
+                "icon": "brain",
                 "pages": [
-                  "platform/capx-chain/introduction",
-                  {
-                    "group": "Core Concepts",
-                    "icon": "brain",
-                    "pages": [
-                      "platform/capx-chain/architecture",
-                      "platform/capx-chain/consensus"
-                    ]
-                  },
-                  "platform/capx-chain/getting-started"
+                  "products/capx-chain/architecture",
+                  "products/capx-chain/consensus"
                 ]
               },
+              "products/capx-chain/getting-started"
+            ]
+          },
+          {
+            "group": "Capx Cloud",
+            "icon": "cloud",
+            "pages": [
+              "products/capx-cloud/introduction",
+              "products/capx-cloud/foundational-concepts",
               {
-                "group": "Capx Cloud",
-                "icon": "cloud",
+                "group": "Core Concepts",
+                "icon": "brain",
                 "pages": [
-                  "platform/capx-cloud/introduction",
-                  "platform/capx-cloud/foundational-concepts",
-                  {
-                    "group": "Core Concepts",
-                    "icon": "brain",
-                    "pages": [
-                      "platform/capx-cloud/core-concepts/architecture",
-                      "platform/capx-cloud/core-concepts/infrastructure",
-                      "platform/capx-cloud/core-concepts/symbiotic",
-                      "platform/capx-cloud/core-concepts/vaults",
-                      "platform/capx-cloud/core-concepts/operators",
-                      "platform/capx-cloud/core-concepts/performer",
-                      "platform/capx-cloud/core-concepts/attestor",
-                      "platform/capx-cloud/core-concepts/delegator",
-                      "platform/capx-cloud/core-concepts/resolver"
-                    ]
-                  },
-                  "platform/capx-cloud/getting-started"
+                  "products/capx-cloud/core-concepts/infrastructure",
+                  "products/capx-cloud/core-concepts/symbiotic",
+                  "products/capx-cloud/core-concepts/vaults",
+                  "products/capx-cloud/core-concepts/operators",
+                  "products/capx-cloud/core-concepts/performer",
+                  "products/capx-cloud/core-concepts/attestor",
+                  "products/capx-cloud/core-concepts/delegator",
+                  "products/capx-cloud/core-concepts/resolver"
                 ]
               },
-              {
-                "group": "Capx SuperApp",
-                "icon": "store",
-                "pages": [
-                  "platform/capx-superapp/introduction",
-                  {
-                    "group": "Tutorials",
-                    "icon": "user-graduate",
-                    "pages": [
-                      "platform/capx-superapp/tutorials/create-account",
-                      "platform/capx-superapp/tutorials/manage-profile",
-                      "platform/capx-superapp/tutorials/complete-quest",
-                      "platform/capx-superapp/tutorials/trade-ai-agent"
-                    ]
-                  },
-                  "platform/capx-superapp/faq"
-                ]
-              }
+              "products/capx-cloud/getting-started"
             ]
           }
         ]
       },
       {
-        "tab": "Capx AI Guides",
+        "tab": "🛠 Build on Capx",
         "groups": [
+          {
+            "group": "Overview",
+            "icon": "door-open",
+            "pages": [
+              "guides/overview"
+            ]
+          },
           {
             "group": "Developer Guides",
             "icon": "code",
@@ -163,27 +175,29 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "📚 Tutorials",
+        "icon": "user-graduate",
+        "pages": [
+          "tutorials/overview"
+        ]
+      },
+      {
+        "tab": "🌍 Ecosystem Updates",
+        "icon": "globe",
+        "pages": [
+          "ecosystem/updates"
+        ]
+      },
+      {
+        "tab": "🤝 Partnerships",
+        "icon": "handshake",
+        "pages": [
+          "partnership/index"
+        ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://discord.com/invite/capx",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mirror.xyz/capxai.eth",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/Capx-Light.svg",

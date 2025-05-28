@@ -1,0 +1,86 @@
+---
+title: "The DEX & Liquidity Engine: Powering On-Chain Agent Markets"
+description: ""
+icon: "plug-circle-bolt"
+sidebarTitle: 'DEX & Liquidity Engine'
+---
+
+For tokenized AI agents to become a truly liquid asset class, a dedicated, efficient, and deeply integrated trading infrastructure is indispensable. The Capx ecosystem provides this through its native **Decentralized Exchange (DEX) & Liquidity Engine**, a purpose-built automated market maker (AMM) operating directly on Capx Chain. This AMM is an optimized fork of the battle-tested **Uniswap V2 protocol**, tailored to the specific requirements of the AI agent token economy.
+
+### Architectural Foundation: Uniswap V2 Core Principles
+
+Leveraging Uniswap V2 as the foundational codebase provides immediate access to its proven strengths:
+
+*   **Constant Product Formula (`x * y = k`):** The core AMM logic ensures deterministic pricing based on the ratio of reserves in a liquidity pool.
+*   **Permissionless Liquidity Provision:** Enables any user to contribute assets to liquidity pools and earn a proportional share of trading fees.
+*   **Decentralized & Non-Custodial Trading:** Users retain full custody of their assets throughout the trading process, interacting directly with smart contracts.
+*   **Robustness & Security:** Benefits from the extensive auditing and real-world resilience demonstrated by Uniswap V2.
+
+However, the Capx DEX is not a generic fork; it incorporates specific design choices optimized for the agent token lifecycle.
+
+### Strategic Optimizations for the Agent Economy
+
+1.  **Universal Base Pair: $CAPX:**
+    *   **Liquidity Concentration:** All AI agent tokens are exclusively paired against the Capx ecosystem's native utility token, **$CAPX** (e.g., `AgentTokenA/$CAPX`, `AgentTokenB/$CAPX`). This contrasts with general-purpose DEXs that allow arbitrary pairings.
+    *   **Benefits:**
+        *   **Simplified UX:** Users only need to hold $CAPX to interact with any agent token market.
+        *   **Improved Price Stability:** Concentrating liquidity against a common base asset generally leads to deeper markets and reduced slippage for agent tokens, especially for newly launched agents.
+        *   **Efficient Routing:** Simplifies multi-hop swap calculations if ever needed, though direct $CAPX pairs are the primary design.
+        *   **Strengthened CAPX Utility:** Enhances the demand and utility of the $CAPX token as the primary gateway to the agent economy.
+
+2.  **Isolated Liquidity Pools per Agent:**
+    *   Each AI agent token, upon creation and registration, has the capability to have its own dedicated `AgentTokenX/$CAPX` liquidity pool contract deployed.
+    *   This isolation prevents a "rug pull" in one agent's pool from directly impacting the liquidity or integrity of another agent's distinct pool, though systemic risks via $CAPX volatility remain a general market factor.
+
+3.  **Gas Efficiency on Capx Chain (L2):**
+    *   Operating on Capx Chain (an L2 leveraging Arbitrum Nitro) inherently means Uniswap V2 operations (swaps, liquidity additions/removals) are significantly cheaper and faster than on Ethereum L1. This is crucial for fostering active trading of potentially lower-value or early-stage agent tokens.
+
+4.  **Deep SuperApp Integration:**
+    *   The Capx SuperApp provides a seamless front-end for interacting with the DEX. Users can swap tokens, view pool statistics, and (in future phases) manage liquidity positions directly within the agent's profile or a dedicated DEX interface in the app, abstracting away direct smart contract interactions for most users.
+
+### Core DEX Operations & Smart Contracts
+
+*   **Factory Contract (Uniswap V2 Factory):**
+    *   Responsible for deploying new unique `AgentTokenX/$CAPX` pair contracts (liquidity pools).
+    *   Maintains a registry of all created pairs.
+    *   Only permits pair creation with $CAPX as one of the assets and a verified agent token (from the Capx Token Registry) as the other.
+*   **Pair Contracts (Uniswap V2 Pair):**
+    *   Each `AgentTokenX/$CAPX` pool is its own smart contract.
+    *   Holds reserves of the two tokens.
+    *   Implements the `swap()`, `mint()` (for adding liquidity), and `burn()` (for removing liquidity) functions.
+    *   Emits `Sync` and `Swap` events crucial for off-chain price tracking and analytics.
+*   **Router Contract (Uniswap V2 Router):**
+    *   Provides user-friendly functions to interact with pair contracts (e.g., `swapExactTokensForTokens`, `addLiquidity`).
+    *   Handles the necessary token transfers and calculations, abstracting complexity from the end-user or dApp integrator.
+    *   Enforces deadlines and slippage protection parameters for swaps.
+
+**The Swap Execution Flow (Simplified):**
+
+1.  **User Initiates Swap (via SuperApp):** User intends to swap `amountIn` of $CAPX for `AgentTokenX`.
+2.  **Router Interaction:** SuperApp crafts a transaction calling a function like `swapExactCAPXForTokens(amountIn, amountOutMin, path, to, deadline)` on the Capx DEX Router contract.
+    *   `path`: Will be `[$CAPX_address, $AgentTokenX_address]`.
+3.  **Token Transfer & Pair Call:** The Router pulls `amountIn` of CAPX from the user, then calls the `swap()` function on the specific `AgentTokenX/$CAPX` pair contract.
+4.  **Pair Contract Logic:**
+    *   The pair contract calculates the `amountOut` of `AgentTokenX` based on current reserves and the constant product formula, accounting for a 0.3% trading fee (standard Uniswap V2, potentially configurable for Capx).
+    *   It transfers `amountOut` of `AgentTokenX` to the user and updates its internal reserves.
+    *   Emits `Swap` and `Sync` events.
+5.  **Transaction Finality:** The L2 transaction is confirmed rapidly on Capx Chain.
+
+### Liquidity Provision & Incentives (Roadmap)
+
+While initial liquidity may be seeded programmatically or by developers/Capx Treasury, the long-term health of the agent token markets will depend on community liquidity provision.
+
+*   **Current State:** Users can trade. LP management features are typically rolled out progressively.
+*   **Future LP Features:**
+    *   **SuperApp LP Interface:** Tools within the SuperApp to add/remove liquidity to `AgentTokenX/$CAPX` pairs.
+    *   **LP Token (ERC-20):** When users add liquidity, they receive LP tokens representing their proportional share of the pool. These LP tokens can themselves be staked or used in other DeFi protocols.
+    *   **Fee Accrual:** LPs earn 0.3% (or the configured percentage) of all trading volume in their respective pools, proportional to their share.
+    *   **Advanced Analytics:** Dashboards displaying LP PnL, impermanent loss estimations, fee generation, and share of pool.
+    *   **Protocol-Level Incentives:** Potential for distributing additional $CAPX rewards or other incentives to LPs in strategic agent token pools to bootstrap liquidity (often referred to as "liquidity mining").
+
+### Security & On-Chain Oracle Potential
+
+*   **Audited Base & Controlled Modifications:** The security heavily relies on the proven Uniswap V2 contracts, with any Capx-specific modifications undergoing rigorous auditing.
+*   **Token Whitelisting via Registry:** The DEX interacts only with agent tokens verified by the Capx Token Registry, minimizing the risk of scam tokens in native pools.
+*   **On-Chain Price Feeds (TWAP Oracles):** Uniswap V2 pair contracts can serve as on-chain price oracles by providing time-weighted average prices (TWAPs). This allows other smart contracts on Capx Chain to securely query the recent historical price of an agent token against $CAPX, enabling more advanced financial applications and agent logic based on token value.
+

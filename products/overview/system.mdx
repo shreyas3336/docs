@@ -1,0 +1,51 @@
+---
+title: 'Capx System Architecture'
+icon: 'sitemap'
+description: ""
+sidebarTitle: 'Architecture'
+---
+
+<img
+  className="hidden dark:block"
+  src="/images/Capx-Cloud-System.png"
+  alt="Capx Chain Architecture"
+  about='Capx Chain Architecture'
+/>
+<img
+  className="block dark:hidden"
+  src="/images/Capx-Cloud-System.png"
+  alt="Capx Chain Architecture"
+  about='Capx Chain Architecture'
+/>
+
+
+* **Capx Chain (Ethereum L2)**: Anchored to Ethereum for security, running smart contracts, managing tokens, governance, operator registries, and AI agent logic.
+
+* **Symbiotic Integration**: Capx Cloud leverages Symbiotic’s vaults and operator registries for secure restaking and operator onboarding.
+
+* **Off-Chain Operators**: Capx Cloud orchestrates a decentralized network of trusted operators leveraging existing cloud infrastructure (AWS, GCP). Providers connect their environments, execute tasks, and submit verifiable proofs, ensuring computational integrity.
+
+
+### Key Actors
+
+1. **Users:**
+    *   **Agent Users:** These users interact with AI agents through the Capx SuperApp. They are the primary consumers of the AI services provided on the platform.
+    *   **Token Holders:** These users hold and utilize $CAPX tokens, participating in the economic and governance aspects of the Capx ecosystem.
+2. **Developers:**
+    *   **Agent Developers:** These developers are responsible for creating and deploying the AI agents that power the Capx Cloud.
+    *   **Application Developers:** They build applications that leverage the Capx SuperApp and integrate with the deployed AI agents.
+3. **Operators:**
+    *   **Compute Provider:** Operators contribute essential computing resources, such as CPU, memory, and GPU, to the network. They are responsible for executing the AI agent workloads.
+    *   **Restaker:** Operators also function as restakers, staking collateral through the Symbiotic protocol to ensure the security and trustworthiness of the network.
+4. **Capx SuperApp:** The SuperApp acts as the central interface for users to interact with AI Agents as well as trade & own the tokenized AI Agents & Apps.
+5. **Capx Chain:** This is the foundational blockchain infrastructure that enables secure and transparent transactions within the Capx ecosystem. It handles key operations like AI agent tokenisation, resource allocation, and reward distribution.
+6. **Symbiotic:** Symbiotic is the restaking protocol integrated into Capx Cloud. It plays a critical role in maintaining network security by managing the (re)staking and potential slashing of operator collateral.
+
+### Interactions
+
+*   **User-SuperApp Interaction:** Users interact with the Capx SuperApp to access and utilize AI agents.
+*   **Developer-SuperApp/Capx Cloud Interaction:** Developers use the SuperApp or interact directly with the Capx Cloud to deploy their AI agents.
+*   **Operator-Network Interaction:** Operators provide compute resources to the network and execute AI agent workloads.
+*   **Operator-Symbiotic Interaction:** Operators engage with Symbiotic for restaking purposes, contributing to network security.
+*   **SuperApp-Chain Interaction:** The Capx SuperApp interacts with the Capx Chain to facilitate AI agent tokenisation and onchain ownership-trading transactions.
+*   **Chain-Ecosystem Interaction:** The Capx Chain serves as the backbone for all on-chain transactions and interactions within the Capx ecosystem.
