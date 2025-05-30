@@ -34,20 +34,13 @@
             "pages": [
               "products/capx-superapp/introduction",
               "products/capx-superapp/getting-started",
-              {
-                "group": "Core Concepts",
-                "icon": "brain",
-                "pages": [
-                  "products/capx-superapp/core-concepts/token-registry",
-                  "products/capx-superapp/core-concepts/trading-engine"
-                ]
-              },
+              "products/capx-superapp/main-components",
               {
                 "group": "Tutorials",
                 "icon": "user-graduate",
                 "pages": [
                   "products/capx-superapp/tutorials/create-account",
-                  "products/capx-superapp/tutorials/manage-profile",
+                  "products/capx-superapp/tutorials/explore-ai-agent",
                   "products/capx-superapp/tutorials/trade-ai-agent"
                 ]
               },
@@ -63,8 +56,10 @@
                 "group": "Core Concepts",
                 "icon": "brain",
                 "pages": [
-                  "products/capx-chain/architecture",
-                  "products/capx-chain/consensus"
+                  "products/capx-chain/core-concepts/architecture",
+                  "products/capx-chain/core-concepts/consensus",
+                  "products/capx-chain/core-concepts/token-registry",
+                  "products/capx-chain/core-concepts/trading-engine"
                 ]
               },
               "products/capx-chain/getting-started"

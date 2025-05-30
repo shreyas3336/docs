@@ -21,9 +21,56 @@ The Capx Token Factory is a non-upgradeable smart contract system on Capx Chain 
 
 **Technical Issuance Process:**
 
+**Contract Implementation:** `Capx Agent Contracts` [➹](https://github.com/Capx-AI/Capx-Super-App-Contracts/tree/prod-deployment/agents_units-to-coins/contracts)
+
+    ```solidity
+        //SPDX-License-Identifier: MIT
+        pragma solidity ^0.8.20;
+
+        interface ICapxAgentFactory {
+            struct CapxAgentParams {
+                string name;
+                string symbol;
+                string tokenURI;
+                uint8 decimals;
+                uint256 ecr20TotalSupply;
+                address agentOwner;
+            }
+
+            struct CapxAgentInfo {
+                uint256 id;
+                address agent;
+                string name;
+                string symbol;
+                string tokenURI;
+                uint8 decimals;
+                uint256 ecr20TotalSupply;
+                address initialAgentOwner;
+            }
+
+            event NewCapxAgent(
+                address indexed agent,
+                address indexed owner,
+                string name,
+                string symbol,
+                string tokenURI,
+                uint8 decimals,
+                uint256 erc20TotalSupply
+            );
+
+            function createAgent(CapxAgentParams memory _agentParams) external;
+            
+            function name() public view returns (string memory);
+
+            function symbol() public view returns (string memory);
+            
+            function decimals() public view returns (uint8);
+        }
+    ```
+
 1.  **Agent Deployment Trigger:** Upon successful deployment of an AI agent via Capx Cloud, a secure call is made to the Token Factory contract on Capx Chain.
 2.  **Dedicated Agent Wallet Context:** The deployment process ensures the agent is associated with a Privy-linked wallet. This wallet becomes the initial recipient or controller of certain token allocations, ensuring secure, programmatic control for the agent or its creator.
-3.  **Immutable Token Contract Generation:** The Token Factory executes the `createAgentToken` function (or a similar internal method). This function deploys a new, distinct ERC-20 compliant smart contract for the agent.
+3.  **Immutable Token Contract Generation:** The Token Factory executes the `createAgent` function (or a similar internal method). This function deploys a new, distinct ERC-20 compliant smart contract for the agent.
     *   **Fixed Supply Parameter:** `1,000,000,000` (one billion) tokens are minted to a `totalSupply` variable within the new token contract. This supply is **immutable**; the ERC-20 contract itself will contain no `mint()` or `burn()` functions callable post-deployment, ensuring absolute supply predictability.
     *   **Standardized Token Parameters:**
         *   **`name()`:** Derived from the agent's registered name (e.g., "Agent X Token").

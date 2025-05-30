@@ -18,7 +18,101 @@ Leveraging Uniswap V2 as the foundational codebase provides immediate access to 
 
 However, the Capx DEX is not a generic fork; it incorporates specific design choices optimized for the agent token lifecycle.
 
-### Strategic Optimizations for the Agent Economy
+## Uniswap V2 Core Interfaces
+
+Before delving into Capx-specific extensions, here are the canonical Uniswap V2 interfaces that underpin all AMM operations.
+
+### Factory Contract Interface
+
+```solidity
+interface IUniswapV2Factory {
+    event PairCreated(address indexed token0, address indexed token1, address pair, uint);
+
+    function getPair(address tokenA, address tokenB) external view returns (address pair);
+    function allPairs(uint) external view returns (address pair);
+    function allPairsLength() external view returns (uint);
+    function feeTo() external view returns (address);
+    function feeToSetter() external view returns (address);
+
+    function createPair(address tokenA, address tokenB) external returns (address pair);
+}
+```
+
+*Governance of pool registry and protocol-fees; deploys new pair via `createPair(tokenA, tokenB)`.*
+
+### Pair Contract Interface
+
+```solidity
+interface IUniswapV2Pair {
+    event Mint(address indexed sender, uint amount0, uint amount1);
+    event Burn(address indexed sender, uint amount0, uint amount1, address indexed to);
+    event Swap(address indexed sender, uint amount0In, uint amount1In, uint amount0Out, uint amount1Out, address indexed to);
+    event Sync(uint112 reserve0, uint112 reserve1);
+
+    function getReserves() external view returns (uint112 reserve0, uint112 reserve1, uint32 blockTimestampLast);
+    function mint(address to) external returns (uint liquidity);
+    function burn(address to) external returns (uint amount0, uint amount1);
+    function swap(uint amount0Out, uint amount1Out, address to, bytes calldata data) external;
+    function skim(address to) external;
+    function sync() external;
+}
+```
+
+*Core pool mechanics: `mint()`, `burn()`, `swap()`, `sync()`, and reserve queries.*
+
+### Router Contracts
+
+```solidity
+// Core swap + liquidity (Router01)
+function addLiquidity(
+    address tokenA, address tokenB,
+    uint amountADesired, uint amountBDesired,
+    uint amountAMin, uint amountBMin,
+    address to, uint deadline
+) external returns (uint amountA, uint amountB, uint liquidity);
+
+function removeLiquidity(
+    address tokenA, address tokenB,
+    uint liquidity, uint amountAMin, uint amountBMin,
+    address to, uint deadline
+) external returns (uint amountA, uint amountB);
+
+function swapExactTokensForTokens(
+    uint amountIn, uint amountOutMin,
+    address[] calldata path,
+    address to, uint deadline
+) external returns (uint[] memory amounts);
+
+// Permit-enabled + fee-on-transfer variants (Router02)
+function removeLiquidityWithPermit(
+    address tokenA, address tokenB, uint liquidity,
+    uint amountAMin, uint amountBMin,
+    address to, uint deadline,
+    bool approveMax, uint8 v, bytes32 r, bytes32 s
+) external returns (uint amountA, uint amountB);
+
+function swapExactTokensForTokensSupportingFeeOnTransferTokens(
+    uint amountIn, uint amountOutMin,
+    address[] calldata path,
+    address to, uint deadline
+) external;
+```
+
+*User-facing entry points: multi-hop swaps, liquidity management, permit and fee-on-transfer support.*
+
+### Library Helpers
+
+```solidity
+function getAmountsOut(address factory, uint amountIn, address[] memory path)
+    internal view returns (uint[] memory amounts);
+
+function getAmountsIn(address factory, uint amountOut, address[] memory path)
+    internal view returns (uint[] memory amounts);
+```
+
+*On-chain price/amount calculations by reading pair reserves along a path.*
+
+## Strategic Optimizations for the Agent Economy
 
 1.  **Universal Base Pair: $CAPX:**
     *   **Liquidity Concentration:** All AI agent tokens are exclusively paired against the Capx ecosystem's native utility token, **$CAPX** (e.g., `AgentTokenA/$CAPX`, `AgentTokenB/$CAPX`). This contrasts with general-purpose DEXs that allow arbitrary pairings.
@@ -38,7 +132,7 @@ However, the Capx DEX is not a generic fork; it incorporates specific design cho
 4.  **Deep SuperApp Integration:**
     *   The Capx SuperApp provides a seamless front-end for interacting with the DEX. Users can swap tokens, view pool statistics, and (in future phases) manage liquidity positions directly within the agent's profile or a dedicated DEX interface in the app, abstracting away direct smart contract interactions for most users.
 
-### Core DEX Operations & Smart Contracts
+## Core DEX Operations & Smart Contracts
 
 *   **Factory Contract (Uniswap V2 Factory):**
     *   Responsible for deploying new unique `AgentTokenX/$CAPX` pair contracts (liquidity pools).
@@ -54,7 +148,7 @@ However, the Capx DEX is not a generic fork; it incorporates specific design cho
     *   Handles the necessary token transfers and calculations, abstracting complexity from the end-user or dApp integrator.
     *   Enforces deadlines and slippage protection parameters for swaps.
 
-**The Swap Execution Flow (Simplified):**
+### **The Swap Execution Flow (Simplified):**
 
 1.  **User Initiates Swap (via SuperApp):** User intends to swap `amountIn` of $CAPX for `AgentTokenX`.
 2.  **Router Interaction:** SuperApp crafts a transaction calling a function like `swapExactCAPXForTokens(amountIn, amountOutMin, path, to, deadline)` on the Capx DEX Router contract.
@@ -66,7 +160,7 @@ However, the Capx DEX is not a generic fork; it incorporates specific design cho
     *   Emits `Swap` and `Sync` events.
 5.  **Transaction Finality:** The L2 transaction is confirmed rapidly on Capx Chain.
 
-### Liquidity Provision & Incentives (Roadmap)
+## Liquidity Provision & Incentives (Roadmap)
 
 While initial liquidity may be seeded programmatically or by developers/Capx Treasury, the long-term health of the agent token markets will depend on community liquidity provision.
 
@@ -78,7 +172,7 @@ While initial liquidity may be seeded programmatically or by developers/Capx Tre
     *   **Advanced Analytics:** Dashboards displaying LP PnL, impermanent loss estimations, fee generation, and share of pool.
     *   **Protocol-Level Incentives:** Potential for distributing additional $CAPX rewards or other incentives to LPs in strategic agent token pools to bootstrap liquidity (often referred to as "liquidity mining").
 
-### Security & On-Chain Oracle Potential
+## Security & On-Chain Oracle Potential
 
 *   **Audited Base & Controlled Modifications:** The security heavily relies on the proven Uniswap V2 contracts, with any Capx-specific modifications undergoing rigorous auditing.
 *   **Token Whitelisting via Registry:** The DEX interacts only with agent tokens verified by the Capx Token Registry, minimizing the risk of scam tokens in native pools.
