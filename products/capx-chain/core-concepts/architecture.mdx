@@ -49,6 +49,11 @@ Capx Chain operates as an optimistic rollup. This means it "optimistically" assu
     *   **State Transition Function (STF):** This deterministic function defines how the state of the L2 chain changes in response to transactions. It's compiled into native machine code for fast execution by Nitro nodes and into WASM for fraud proofs.
     *   **Stylus:** An upgrade that allows developers to write smart contracts in languages like Rust and C++ that compile to WASM, in addition to Solidity for the EVM. These WASM contracts can interoperate with EVM contracts.
 
+*   **Data Availability (DA) Layer Strategy:**
+    *   **The Role of Data Availability:** For an optimistic rollup like Capx Chain, ensuring data availability is paramount. It means that all the data required to reconstruct the L2 state and verify transactions must be accessible to anyone. This allows validators to check for fraud and users to exit the L2 even if the Sequencer becomes malicious or unavailable.
+    *   **Capx Chain's Approach to DA:** Capx Chain, leveraging the flexibility of the Arbitrum Nitro stack, has the capability to integrate with alternative Data Availability solutions. This can include options like an AnyTrust model using a Data Availability Committee (DAC) for significantly lower costs, or dedicated third-party DA layers (e.g., Celestia, EigenDA, Avail) which offer different trade-offs in terms of cost, throughput, and security assumptions.
+    *   **Impact on Users & Developers:** The choice of DA layer directly impacts transaction costs on Capx Chain. Using Ethereum L1 is typically more expensive but offers stronger security guarantees. Alternative DA solutions aim to reduce these costs, potentially enabling new types of applications, but may involve different trust assumptions (e.g., trusting a DAC in an AnyTrust model).
+
 *   **Key Built-in Contracts/Modules (L2):**
     *   **Token Bridging Contracts (L2 Side):** Work in conjunction with the L1 bridge contracts to facilitate asset movement.
 

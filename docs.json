@@ -92,19 +92,14 @@
       },
       {
         "tab": "🛠 Build on Capx",
-        "groups": [
+        "pages": [
+          "guides/overview",
           {
-            "group": "Overview",
-            "icon": "door-open",
+            "group": "Operator Guides",
+            "icon": "address-book",
             "pages": [
-              "guides/overview"
-            ]
-          },
-          {
-            "group": "Developer Guides",
-            "icon": "code",
-            "pages": [
-              "guides/developer/getting-started",
+              "guides/operator/overview",
+              "guides/operator/lifecycle",
               {
                 "group": "Key Concepts",
                 "icon": "lightbulb",
@@ -115,30 +110,6 @@
                   "guides/developer/key-concepts/security-model"
                 ]
               },
-              "guides/developer/requirements",
-              {
-                "group": "Examples",
-                "icon": "signs-post",
-                "pages": [
-                  "guides/developer/examples/chat-agent"
-                ]
-              },
-              {
-                "group": "References",
-                "icon": "book",
-                "pages": [
-                  "guides/developer/references/chain",
-                  "guides/developer/references/cloud"
-                ]
-              }
-            ]
-          },
-          {
-            "group": "Operator Guides",
-            "icon": "address-book",
-            "pages": [
-              "guides/operator/overview",
-              "guides/operator/lifecycle",
               {
                 "group": "Setup",
                 "icon": "gears",
