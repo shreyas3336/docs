@@ -24,9 +24,9 @@ sidebarTitle: 'Architecture'
 
 Capx Chain operates as an optimistic rollup. This means it "optimistically" assumes all transactions are valid and processes them off-chain on its Layer 2. It then periodically submits batches of these transactions (as compressed calldata) to the Ethereum Layer 1 (L1) for final settlement. If a fraudulent transaction is suspected, a dispute resolution process (fraud proof) is initiated. Nitro features interactive fraud proofs, which are designed to be more efficient by re-executing only the disputed part of a transaction.
 
-**Key Architectural Layers & Components:**
+## Key Architectural Layers & Components
 
-**1. Ethereum Layer 1 (The Foundation)**
+### **1. Ethereum Layer 1 (The Foundation)**
 
 *   **Consensus Layer (Leveraged by Capx):** Capx Chain relies on the underlying Ethereum blockchain for its security and finality. It doesn't have its own separate consensus mechanism for L2 state in the same way a Layer 1 blockchain does. Instead, the validity of Capx Chain's state is ultimately guaranteed by the ability to prove it on Ethereum L1.
 *   **Capx L1 Smart Contracts:** These are crucial contracts deployed on Ethereum that manage the rollup protocol. Key contracts include:
@@ -35,30 +35,30 @@ Capx Chain operates as an optimistic rollup. This means it "optimistically" assu
     *   **Rollup Core Contracts (e.g., RollupCore.sol):** Manage the state of the rollup, track assertions made by validators about the L2 state, and facilitate the fraud proof mechanism.
     *   **Bridge Contracts:** Enable the transfer of assets (ETH and ERC-20 tokens) between Ethereum L1 and Capx Chain L2.
 
-**2. Capx Chain Layer 2 (The Scaling Engine)**
+### **2. Capx Chain Layer 2 (The Scaling Engine)**
+    ####   **Networking Layer (L2):**
+        *   **Sequencer:** This is a key component in Capx Chain. The Sequencer orders transactions, compresses them, and posts these batches as calldata to the Ethereum L1 Inbox contract. It provides users with fast, "soft" finality (confirmation within 1-2 seconds).
+        *   **Validators/Full Nodes (L2):** These nodes execute all L2 transactions and can challenge the Sequencer's assertions if they detect an incorrect state transition. They play a crucial role in security by observing the chain and initiating fraud proofs if necessary.
+        *   **RPC Endpoints:** Allow users and dApps to interact with the Capx Chain network (submit transactions, query state, etc.).
 
-*   **Networking Layer (L2):**
-    *   **Sequencer:** This is a key component in Capx Chain. The Sequencer orders transactions, compresses them, and posts these batches as calldata to the Ethereum L1 Inbox contract. It provides users with fast, "soft" finality (confirmation within 1-2 seconds).
-    *   **Validators/Full Nodes (L2):** These nodes execute all L2 transactions and can challenge the Sequencer's assertions if they detect an incorrect state transition. They play a crucial role in security by observing the chain and initiating fraud proofs if necessary.
-    *   **RPC Endpoints:** Allow users and dApps to interact with the Capx Chain network (submit transactions, query state, etc.).
+    ####   **Execution Layer (L2):** 
+        This is where smart contracts are executed on Capx Chain.
+        *   **Arbitrum Virtual Machine (AVM) - Powered by Nitro:** Nitro significantly upgraded Arbitrum's execution environment. A key innovation is compiling the core of Geth (Go Ethereum, the most popular Ethereum client) directly into Arbitrum. This provides high EVM compatibility, meaning most Ethereum smart contracts can run on Capx Chain with minimal to no changes.
+        *   **WASM (WebAssembly):** Nitro utilizes WASM for its fraud proofs. The L2 Capx Chain engine can be written and compiled using standard languages, and for fraud proofs, the relevant code (specifically the State Transition Function) is compiled to WASM. This separation of execution (native code for speed) and proving (WASM for verifiability and portability) is a core design principle.
+        *   **ArbOS:** This is a custom operating system for the L2 chain. It handles L2-specific functionalities such as calldata decompression, gas fee management, cross-chain communication between L1 and L2, and managing smart contract lifecycles. The Nitro version of ArbOS was rewritten in Go.
+        *   **State Transition Function (STF):** This deterministic function defines how the state of the L2 chain changes in response to transactions. It's compiled into native machine code for fast execution by Nitro nodes and into WASM for fraud proofs.
+        *   **Stylus:** An upgrade that allows developers to write smart contracts in languages like Rust and C++ that compile to WASM, in addition to Solidity for the EVM. These WASM contracts can interoperate with EVM contracts.
 
-*   **Execution Layer (L2):** This is where smart contracts are executed on Capx Chain.
-    *   **Arbitrum Virtual Machine (AVM) - Powered by Nitro:** Nitro significantly upgraded Arbitrum's execution environment. A key innovation is compiling the core of Geth (Go Ethereum, the most popular Ethereum client) directly into Arbitrum. This provides high EVM compatibility, meaning most Ethereum smart contracts can run on Capx Chain with minimal to no changes.
-    *   **WASM (WebAssembly):** Nitro utilizes WASM for its fraud proofs. The L2 Capx Chain engine can be written and compiled using standard languages, and for fraud proofs, the relevant code (specifically the State Transition Function) is compiled to WASM. This separation of execution (native code for speed) and proving (WASM for verifiability and portability) is a core design principle.
-    *   **ArbOS:** This is a custom operating system for the L2 chain. It handles L2-specific functionalities such as calldata decompression, gas fee management, cross-chain communication between L1 and L2, and managing smart contract lifecycles. The Nitro version of ArbOS was rewritten in Go.
-    *   **State Transition Function (STF):** This deterministic function defines how the state of the L2 chain changes in response to transactions. It's compiled into native machine code for fast execution by Nitro nodes and into WASM for fraud proofs.
-    *   **Stylus:** An upgrade that allows developers to write smart contracts in languages like Rust and C++ that compile to WASM, in addition to Solidity for the EVM. These WASM contracts can interoperate with EVM contracts.
+    ####   **Data Availability (DA) Layer Strategy:**
+        *   **The Role of Data Availability:** For an optimistic rollup like Capx Chain, ensuring data availability is paramount. It means that all the data required to reconstruct the L2 state and verify transactions must be accessible to anyone. This allows validators to check for fraud and users to exit the L2 even if the Sequencer becomes malicious or unavailable.
+        *   **Capx Chain's Approach to DA:** Capx Chain, leveraging the flexibility of the Arbitrum Nitro stack, has the capability to integrate with alternative Data Availability solutions. This can include options like an AnyTrust model using a Data Availability Committee (DAC) for significantly lower costs, or dedicated third-party DA layers (e.g., Celestia, EigenDA, Avail) which offer different trade-offs in terms of cost, throughput, and security assumptions.
+        *   **Impact on Users & Developers:** The choice of DA layer directly impacts transaction costs on Capx Chain. Using Ethereum L1 is typically more expensive but offers stronger security guarantees. Alternative DA solutions aim to reduce these costs, potentially enabling new types of applications, but may involve different trust assumptions (e.g., trusting a DAC in an AnyTrust model).
 
-*   **Data Availability (DA) Layer Strategy:**
-    *   **The Role of Data Availability:** For an optimistic rollup like Capx Chain, ensuring data availability is paramount. It means that all the data required to reconstruct the L2 state and verify transactions must be accessible to anyone. This allows validators to check for fraud and users to exit the L2 even if the Sequencer becomes malicious or unavailable.
-    *   **Capx Chain's Approach to DA:** Capx Chain, leveraging the flexibility of the Arbitrum Nitro stack, has the capability to integrate with alternative Data Availability solutions. This can include options like an AnyTrust model using a Data Availability Committee (DAC) for significantly lower costs, or dedicated third-party DA layers (e.g., Celestia, EigenDA, Avail) which offer different trade-offs in terms of cost, throughput, and security assumptions.
-    *   **Impact on Users & Developers:** The choice of DA layer directly impacts transaction costs on Capx Chain. Using Ethereum L1 is typically more expensive but offers stronger security guarantees. Alternative DA solutions aim to reduce these costs, potentially enabling new types of applications, but may involve different trust assumptions (e.g., trusting a DAC in an AnyTrust model).
-
-*   **Key Built-in Contracts/Modules (L2):**
-    *   **Token Bridging Contracts (L2 Side):** Work in conjunction with the L1 bridge contracts to facilitate asset movement.
+    ####   **Key Built-in Contracts/Modules (L2):**
+        *   **Token Bridging Contracts (L2 Side):** Work in conjunction with the L1 bridge contracts to facilitate asset movement.
 
 
-**Interactions & Flows:**
+### **Interactions & Flows:**
 
 1.  **Transaction Submission:** Users submit transactions to an Capx Chain L2 node (often the Sequencer).
 2.  **Sequencing & Batching:** The Sequencer orders transactions, compresses them, and posts a batch to the L1 Inbox contract.

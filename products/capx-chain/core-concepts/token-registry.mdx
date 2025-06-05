@@ -7,7 +7,7 @@ sidebarTitle: 'Agent Token Factory'
 
 The Capx ecosystem pioneers the transformation of AI agents into verifiable, tradable digital assets. This is achieved through a meticulously designed **Token Factory** protocol and an accompanying **Token Registry**, both operating immutably on Capx Chain. This system provides a standardized, transparent, and automated framework for endowing every deployed AI agent with its own distinct on-chain economic identity.
 
-### The ERC-20 Standard for AI Agents: Design Philosophy
+## The ERC-20 Standard for AI Agents: Design Philosophy
 
 The decision to pair every AI agent with a dedicated **ERC-20 fungible token** is a deliberate architectural choice, predicated on several core tenets:
 
@@ -15,13 +15,11 @@ The decision to pair every AI agent with a dedicated **ERC-20 fungible token** i
 *   **Standardized Fungibility & Composability:** Adherence to the ERC-20 standard ensures seamless integration with the broader DeFi ecosystem on Capx Chain (and potentially beyond), allowing agent tokens to be used in lending protocols, as collateral, or within other financial primitives.
 *   **Predictable Economic Framework:** A uniform issuance model provides a stable foundation for valuation, market analysis, and the development of sophisticated financial instruments around AI agents.
 
-### The Token Factory: Protocol Mechanics & Automated Issuance
+## The Token Factory: Protocol Mechanics & Automated Issuance
 
 The Capx Token Factory is a non-upgradeable smart contract system on Capx Chain responsible for the genesis of all AI agent tokens. Its operation is deeply integrated with the AI agent deployment pipeline originating from Capx Cloud.
 
-**Technical Issuance Process:**
-
-**Contract Implementation:** `Capx Agent Contracts` [➹](https://github.com/Capx-AI/Capx-Super-App-Contracts/tree/prod-deployment/agents_units-to-coins/contracts)
+### **Contract Implementation:** `Capx Agent Contracts` [➹](https://github.com/Capx-AI/Capx-Super-App-Contracts/tree/prod-deployment/agents_units-to-coins/contracts)
 
     ```solidity
         //SPDX-License-Identifier: MIT
@@ -67,7 +65,7 @@ The Capx Token Factory is a non-upgradeable smart contract system on Capx Chain 
             function decimals() public view returns (uint8);
         }
     ```
-
+### **Technical Issuance Process:**
 1.  **Agent Deployment Trigger:** Upon successful deployment of an AI agent via Capx Cloud, a secure call is made to the Token Factory contract on Capx Chain.
 2.  **Dedicated Agent Wallet Context:** The deployment process ensures the agent is associated with a Privy-linked wallet. This wallet becomes the initial recipient or controller of certain token allocations, ensuring secure, programmatic control for the agent or its creator.
 3.  **Immutable Token Contract Generation:** The Token Factory executes the `createAgent` function (or a similar internal method). This function deploys a new, distinct ERC-20 compliant smart contract for the agent.
@@ -85,18 +83,18 @@ The Capx Token Factory is a non-upgradeable smart contract system on Capx Chain 
         *   **Public Float:** The remaining tokens become immediately available for circulation.
     *   *Future Iterations:* The allocation logic within the Token Factory or associated contracts may incorporate more complex vesting schedules or DAO-configurable parameters, subject to on-chain governance.
 
-### The Capx Token Registry: On-Chain Verifiability & Discovery
+## The Capx Token Registry: On-Chain Verifiability & Discovery
 
 Complementing the Token Factory is the **Capx Token Registry**. This registry serves as the canonical, on-chain directory of all legitimate AI agent tokens within the ecosystem.
 
-**Registry Functions & Importance:**
+### **Registry Functions & Importance:**
 
 *   **`registerToken(address agentTokenContract, bytes32 agentIdentifier)`:** When the Token Factory creates a new agent token, it (or an authorized address) calls this function to log the new token contract's address alongside a unique identifier for the AI agent (e.g., a hash of its metadata or deployment ID).
 *   **Source of Truth:** The registry provides an immutable, auditable record, allowing dApps, explorers, and users (via the Capx SuperApp) to verify that a given ERC-20 token is an officially sanctioned Capx AI agent token, mitigating risks of counterfeit or imposter tokens.
 *   **Metadata Linkage:** The registry might store or link to off-chain (e.g., IPFS) or on-chain metadata about the agent (description, creator, performance metrics pointers), enabling rich data display in frontends.
 *   **Facilitating Discovery & Integration:** The Capx SuperApp and the native DEX directly query this registry to populate lists of tradable agents, ensuring users only interact with verified assets. Third-party services can also integrate with this registry for data provisioning.
 
-**Lifecycle & Governance:**
+### **Lifecycle & Governance:**
 
 1.  **Deployment & Automatic Registration:** An AI agent is deployed via Capx Cloud; the Token Factory mints its 1 billion tokens and registers the new token contract with the Capx Token Registry.
 2.  **Initial Liquidity Event:** A portion of the minted tokens, paired with $CAPX, is used to seed a liquidity pool on the Capx DEX, establishing an initial market.

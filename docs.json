@@ -147,13 +147,6 @@
         ]
       },
       {
-        "tab": "📚 Tutorials",
-        "icon": "user-graduate",
-        "pages": [
-          "tutorials/overview"
-        ]
-      },
-      {
         "tab": "🌍 Ecosystem Updates",
         "icon": "globe",
         "pages": [
