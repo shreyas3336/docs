@@ -11,15 +11,15 @@ sidebarTitle: 'Architecture'
 
 <img
   className="hidden dark:block"
-  src="/images/Capx Chain Arch.png"
-  alt="Capx Chain Architecture"
-  about='Capx Chain Architecture'
+  src="/images/Capx-Chain-Architecture.png"
+  alt="Capx-Chain-Architectureitecture"
+  about='Capx-Chain-Architectureitecture'
 />
 <img
   className="block dark:hidden"
-  src="/images/Capx Chain Arch.png"
-  alt="Capx Chain Architecture"
-  about='Capx Chain Architecture'
+  src="/images/Capx-Chain-Architecture.png"
+  alt="Capx-Chain-Architectureitecture"
+  about='Capx-Chain-Architectureitecture'
 />
 
 Capx Chain operates as an optimistic rollup. This means it "optimistically" assumes all transactions are valid and processes them off-chain on its Layer 2. It then periodically submits batches of these transactions (as compressed calldata) to the Ethereum Layer 1 (L1) for final settlement. If a fraudulent transaction is suspected, a dispute resolution process (fraud proof) is initiated. Nitro features interactive fraud proofs, which are designed to be more efficient by re-executing only the disputed part of a transaction.
