@@ -15,7 +15,7 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "🧩 Capx Products",
+        "tab": "🏠 Home",
         "icon": "home",
         "pages": [
           "welcome/welcome",
