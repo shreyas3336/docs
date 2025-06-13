@@ -150,8 +150,8 @@
     ]
   },
   "logo": {
-    "light": "/logo/Capx-Light.svg",
-    "dark": "/logo/Capx-Dark.svg"
+    "light": "/logo/Capx_Logo.png",
+    "dark": "/logo/Capx_Logo.png"
   },
   "navbar": {
     "links": [
