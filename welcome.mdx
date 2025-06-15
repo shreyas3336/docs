@@ -1,8 +1,8 @@
 ---
-title: 'Welcome to Capx : A Decentralized Protocol for AI Agent Ownership, Monetization, and Liquidity'
-icon: 'door-open'
-description: ""
-sidebarTitle: 'Welcome to Capx'
+title: "Welcome to Capx "
+icon: "door-open"
+sidebarTitle: "Welcome to Capx"
+description: "A Decentralized Protocol for AI Agent Ownership, Monetization, and Liquidity"
 ---
 
 ## 🔍 Overview
@@ -15,7 +15,7 @@ Capx brings together the tools required for the **AI Builder Economy** into a si
 
 - A **decentralized compute network** (Capx Cloud) for hosting AI agents securely at scale.
 - An **execution environment** (Capx Chain) optimized for micro-interactions, token issuance, and composable trading.
-- A **discovery and liquidity layer** (Capx App) that allows users to explore, invest in, and interact with AI agents through a familiar social+DeFi interface.
+- A **discovery and liquidity layer** (Capx App) that allows users to explore, invest in, and interact with AI agents through a familiar social\+DeFi interface.
 
 The result is a permissionless framework where:
 
@@ -30,174 +30,81 @@ Capx transforms AI agents from isolated codebases into **network-native economic
   className="hidden dark:block"
   src="/images/Capx-Ai-Infrastructure.png"
   alt="Capx AI Infrastructure"
-  about='Capx AI Infrastructure'
+  about="Capx AI Infrastructure"
 />
+
 <img
   className="block dark:hidden"
   src="/images/Capx-Ai-Infrastructure.png"
   alt="Capx AI Infrastructure"
-  about='Capx AI Infrastructure'
+  about="Capx AI Infrastructure"
 />
 
----
+## 🧠 The Capx Thesis
 
-## 🧠 The Capx Thesis 
+> Autonomous software agents are about to become the most important economic actors of the next decade. They can think, act, and iterate faster than any human-run startup — but the current web-3 stack was built for people, not code that writes its own rules.
 
-> Autonomous software agents are the next class of economic actors — capable of creating value, interacting autonomously, and evolving over time.
-> 
-> 
-> But today’s infrastructure wasn’t designed for them.
-> 
+Capx closes that gap by solving three first-principle problems:
 
-Capx exists to answer three fundamental needs:
+| What Agents Need                | Why It Matters                                                                                                                                                                 | How Capx Delivers                                                                                                                                                                       |
+| :------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Programmable Ownership**      | Early users, data providers, and contributors deserve a direct stake in the agents they power. Without shared upside, network effects stall.                                   | Every agent launches with a native ERC-20 token. Distribution schedules bake in community ownership from day one, aligning incentives as the agent scales.                              |
+| **Agent-Native Infrastructure** | Conventional clouds throttle long-running, self-reflexive processes. Agents need deterministic compute, cheap micro-transactions, and bandwidth designed for autonomous logic. | **Capx Cloud** and **Capx Chain** form a vertically integrated runway for nonstop agent execution.                                                                                      |
+| **On-Chain Liquidity**          | Tokens are only useful if they can move. Agents must plug into existing DeFi rails for price discovery, collateral, and composability.                                         | Built-in AMM pools let every agent token trade instantly. Liquidity hooks feed into the broader DeFi stack, making agent assets borrowable, LP-able, and legible to any smart contract. |
 
-1. **Programmable Ownership** — Users should own upside in agents they help grow.
-2. **Agent-Native Infrastructure** — Compute, bandwidth, and execution tailored to autonomous logic.
-3. **On-Chain Liquidity** — Every agent should have a token, tradeable and composable across DeFi.
-
----
+**In one sentence:** Capx is the programmable ownership, execution, and liquidity layer that lets autonomous agents graduate from proof-of-concept demos to fully capitalized, community-owned businesses.
 
 ## 🧱 The Modular Stack
 
 Capx is composed of three interoperable layers that work together to create a complete AI agent ecosystem:
 
 <CardGroup cols={3}>
-  <Card 
-    title="Capx App"
-    icon="mobile-screen"
-    href="capx-superapp/introduction">
+  <Card title="Capx App" icon="mobile-screen" href="capx-superapp/introduction">
     **Frontend & Liquidity Layer**
-    
+
     Mobile and web interface for discovering, trading, and interacting with AI agents.
-    
+
     - • Social discovery for trending agents
-    - • Native trading interface  
+    - • Native trading interface
     - • Performance metrics & staking
   </Card>
-  
-  <Card 
-    title="Capx Chain" 
-    icon="link"
-    href="capx-chain/introduction">
+  <Card title="Capx Chain" icon="link" href="capx-chain/introduction">
     **Execution Layer (L2)**
-    
+
     Arbitrum Orbit rollup optimized for agent interactions and token trading.
-    
+
     - • Built-in AMM for agent tokens
     - • CAPX native gas token
     - • Cross-agent composability
   </Card>
-  
-  <Card 
-    title="Capx Cloud"
-    icon="cloud"
-    href="capx-cloud/introduction">
+  <Card title="Capx Cloud" icon="cloud" href="capx-cloud/introduction">
     **Compute & Hosting Layer**
-    
+
     Decentralized infrastructure for deploying and scaling AI agents.
-    
+
     - • Docker-based deployment
     - • Auto-scaling compute clusters
     - • Encrypted storage & APIs
   </Card>
 </CardGroup>
 
----
-
-## 🔁 Protocol Mechanics
-
-### Agent Representation
-
-Every agent on Capx is represented by a **factory-created ERC-20 token** contract.
-
-- Token supply is capped or dynamic based on agent logic.
-- Developers retain initial ownership but can progressively decentralize supply.
-- Agent tokens are composable across DeFi — LPs, lending, staking, etc.
-
-### Monetization Flow
-
-- **Deploy** via Capx Cloud
-- **Issue token** on Capx Chain
-- **Distribute** via Capx App (airdrops, performance incentives)
-- **Trade** via native DEX [within capx app]
-- **Earn** via usage, staking, royalties, or delegated inference
-
----
-
 ## 🧑‍💻 Who Can Use Capx?
 
-| **Role** | **How They Participate** |
-| --- | --- |
-| 🛠 **Developers** | Build and tokenize AI agents using Capx SDK + deploy via Docker |
-| 📱 **Users** | Stake in promising agents early, earn tokens, participate in governance |
-| 🧩 **Infra Providers** | Offer compute, bandwidth, inference, or node validation for CAPX rewards |
-| 📊 **Speculators** | Trade and LP agent tokens using the Capx DEX and marketplace modules |
-
-[Start Building →](/guides/overview)
-
----
-
-## 🔐 Design Philosophy
-
-Capx was designed with the following core principles:
-
-<CardGroup cols={2}>
-  <Card 
-    title="🪙 Token-Led Growth"
-    icon="coins">
-    Every agent has a native token to bootstrap demand and create reflexive incentives between users and developers.
-  </Card>
-  
-  <Card 
-    title="🧩 Composability First"
-    icon="puzzle-piece">
-    Agents can interact with other contracts, agents, or chains, enabling complex multi-agent workflows.
-  </Card>
-  
-  <Card 
-    title="🏛️ Progressive Decentralization"
-    icon="users">
-    Governance, upgrades, and control shift toward the community over time through transparent mechanisms.
-  </Card>
-  
-  <Card 
-    title="🤖 AI-First Infrastructure"
-    icon="robot">
-    Persistent memory, untrusted code sandboxing, and LLM API multiplexing built into the stack.
-  </Card>
-</CardGroup>
-
----
+| 🔖 Role                          | 🚀 How They Participate                                                                                        |
+| :------------------------------- | :------------------------------------------------------------------------------------------------------------- |
+| 🛠 **Developers**                | Ship containerized AI agents with the Capx SDK → mint a native token → set emission & governance rules.        |
+| 👥 **Early Users & Communities** | Stake in new agents, earn token rewards for usage and referrals, and vote on upgrades or forks.                |
+| 🏗 **Infrastructure Providers**  | Plug GPUs, bandwidth, or validator nodes into Capx Cloud/Chain and collect CAPX \+ agent-level fees.           |
+| 💹 **Investors & Traders**       | Provide liquidity, trade agent tokens on the in-app DEX, and allocate capital to fast-growing agent economies. |
 
 ## 🧭 Where to Go Next
 
 <CardGroup cols={2}>
-  <Card 
-    title="Capx Products"
-    icon="signs-post"
-    href="/overview/introduction">
+  <Card title="Capx Products" icon="signs-post" href="/overview/introduction">
     Detailed overview of the App, Chain, and Cloud infrastructure components.
   </Card>
-  
-  <Card 
-    title="Build on Capx"
-    icon="code"
-    href="/guides/overview">
+  <Card title="Build on Capx" icon="code" href="/guides/overview">
     SDKs, APIs, token standards, and how to deploy your first agent.
-  </Card>
-  
-  <Card 
-    title="Token & Incentives"
-    icon="coins"
-    href="/guides/operator/key-concepts/agent-tokenization">
-    Breakdown of the CAPX token, utility design, staking, and economics.
-  </Card>
-  
-  <Card 
-    title="Governance"
-    icon="users"
-    href="/overview/system">
-    Future DAO plans, governance rights, and progressive decentralization.
   </Card>
 </CardGroup>
 
@@ -206,8 +113,16 @@ Capx was designed with the following core principles:
 ## 🔗 Explore Capx
 
 <CardGroup cols={4}>
-  <Card title="🌐"href="https://capx.ai/">Capx Website</Card>
-  <Card title="📱"href="https://app.capx.ai/">Capx SuperApp</Card>
-  <Card title="𝕏"href="https://x.com/0xcapx">Twitter</Card>
-  <Card title="💬"href="https://discord.com/invite/capx">Join Discord</Card>
+  <Card title="🌐" href="https://capx.ai/">
+    Capx Website
+  </Card>
+  <Card title="📱" href="https://app.capx.ai/">
+    Capx SuperApp
+  </Card>
+  <Card title="𝕏" href="https://x.com/0xcapx">
+    Twitter
+  </Card>
+  <Card title="💬" href="https://discord.com/invite/capx">
+    Join Discord
+  </Card>
 </CardGroup>
