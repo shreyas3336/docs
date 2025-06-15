@@ -1,0 +1,46 @@
+---
+title: "Capx Cloud Security Model with Symbiotic Integration"
+icon: "shield-halved"
+description: ""
+sidebarTitle: "Security Model"
+---
+
+Capx Cloud is a decentralized infrastructure network designed for AI agent applications. To ensure the reliability and security of this network, it leverages Symbiotic, a shared security protocol that provides flexible restaking and slashing functionalities.
+
+<img
+  className="hidden dark:block"
+  src="/images/Capx-Cloud-Shared-Security-Model.png"
+  alt="Capx Cloud Security Model"
+  about='Capx Cloud Security Model'
+/>
+<img
+  className="block dark:hidden"
+  src="/images/Capx-Cloud-Shared-Security-Model.png"
+  alt="Capx Cloud Security Model"
+  about='Capx Cloud Security Model'
+/>
+
+Here's how the security model operates:
+
+1.  **Operator Resource Provision and Staking:**
+    *   **Operators Provide Resources:** Capx Cloud relies on a decentralized network of operators who provide computational resources (ranging from CPUs for API-driven services to GPUs for intensive AI workloads).
+    *   **Staking via Symbiotic:** To become an operator and participate in the network, these entities must stake assets. Capx Cloud integrates with Symbiotic to manage this staking process. Operators stake assets (which can be various ERC-20 tokens, not just a native token) through Symbiotic's "Vaults." These vaults pool staked assets and manage their delegation to operators. This staking acts as an economic guarantee for their service.
+    *   **Restaking for Capital Efficiency:** Symbiotic's infrastructure allows operators to potentially "restake" assets already staked elsewhere (e.g., from Ethereum validators), repurposing them to also secure Capx Cloud. This enhances capital efficiency, as operators can support multiple networks with the same collateral.
+
+2.  **Attestation and Performance Verification:**
+    *   **Execution of Workloads:** Operators execute AI agent workloads assigned to them by the Capx Cloud protocol.
+    *   **Attestation:** Operators provide attestations of the work they perform. Cryptographic proofs can be used to verify that the deployed code runs unmodified.
+    *   **Attestor Nodes:** Capx Cloud utilizes "Attestor Nodes" as a quality assurance mechanism. These nodes validate the tasks executed by "Performer Nodes" (the operators executing the AI workloads). Attestor Nodes independently verify the accuracy and legitimacy of the execution upon receiving proof of the task and its results. This process aims to ensure computations meet predefined standards for accuracy and reliability, strengthening trust and preventing tampering.
+    *   **Validation and Aggregation:** Attestations are aggregated and validated to ensure operator performance and availability.
+
+3.  **Slashing for Misbehavior (Enforcing Honesty and Reliability):**
+    *   **Economic Incentives:** The staked collateral creates strong economic incentives for operators to act honestly, maintain high uptime, and deliver reliable performance. They have "skin in the game."
+    *   **Conditions for Slashing:** If an operator engages in malicious behavior, provides poor service, fails to meet Service Level Agreement (SLA) compliance, or attempts to tamper with operations, their staked collateral can be slashed. Slashing conditions are configurable and defined by the network (Capx Cloud in this case). Examples of slashable offenses include double-signing, unresponsiveness, or approving invalid state transitions.
+    *   **Slashing Process:** Symbiotic manages the slashing adjudication process. This means Symbiotic's framework handles the transparent and fair execution of penalties when operators violate the rules.
+    *   **Resolvers:** Symbiotic's framework can include "Resolvers," which are entities or contracts tasked with ensuring slashing events are handled transparently and fairly. They can veto slashing requests if deemed incorrect, providing an additional layer of security for participants.
+    *   **Impact of Slashing:** Slashing results in an automatic penalty that reduces the operator's staked assets. This financial penalty discourages malicious actions and reinforces the network's security and trustworthiness.
+
+4.  **Reward Distribution:**
+    *   High-performing, honest operators are rewarded for their contributions to the network. They may even gain priority access to more profitable workloads. Rewards are often distributed in the network's native token (e.g., $CAPX for Capx Cloud).
+
+This system is trust-minimized: operators stake capital that can be slashed, so they’re economically motivated to act honestly. By plugging into Symbiotic’s shared-security framework, Capx Cloud gains robust protection while staying focused on its core mission—running a decentralized AI marketplace—confident that the operator network’s cryptoeconomic incentives keep it secure.

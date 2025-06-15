@@ -18,68 +18,68 @@
         "tab": "🏠 Home",
         "icon": "home",
         "pages": [
-          "welcome/welcome",
-          "products/overview/introduction",
-          "products/overview/how-it-works",
-          "products/overview/system",
+          "welcome",
+          "overview/introduction",
+          "overview/how-it-works",
+          "overview/system",
           {
             "group": "Capx SuperApp",
             "icon": "store",
             "pages": [
-              "products/capx-superapp/introduction",
-              "products/capx-superapp/getting-started",
-              "products/capx-superapp/main-components",
+              "capx-superapp/introduction",
+              "capx-superapp/getting-started",
+              "capx-superapp/main-components",
               {
                 "group": "Tutorials",
                 "icon": "user-graduate",
                 "pages": [
-                  "products/capx-superapp/tutorials/create-account",
-                  "products/capx-superapp/tutorials/explore-ai-agent",
-                  "products/capx-superapp/tutorials/trade-ai-agent"
+                  "capx-superapp/tutorials/create-account",
+                  "capx-superapp/tutorials/explore-ai-agent",
+                  "capx-superapp/tutorials/trade-ai-agent"
                 ]
               },
-              "products/capx-superapp/faq"
+              "capx-superapp/faq"
             ]
           },
           {
             "group": "Capx Chain",
             "icon": "cubes",
             "pages": [
-              "products/capx-chain/introduction",
+              "capx-chain/introduction",
               {
                 "group": "Core Concepts",
                 "icon": "brain",
                 "pages": [
-                  "products/capx-chain/core-concepts/architecture",
-                  "products/capx-chain/core-concepts/consensus",
-                  "products/capx-chain/core-concepts/token-registry",
-                  "products/capx-chain/core-concepts/trading-engine"
+                  "capx-chain/core-concepts/architecture",
+                  "capx-chain/core-concepts/consensus",
+                  "capx-chain/core-concepts/token-registry",
+                  "capx-chain/core-concepts/trading-engine"
                 ]
               },
-              "products/capx-chain/getting-started"
+              "capx-chain/getting-started"
             ]
           },
           {
             "group": "Capx Cloud",
             "icon": "cloud",
             "pages": [
-              "products/capx-cloud/introduction",
-              "products/capx-cloud/foundational-concepts",
+              "capx-cloud/introduction",
+              "capx-cloud/foundational-concepts",
               {
                 "group": "Core Concepts",
                 "icon": "brain",
                 "pages": [
-                  "products/capx-cloud/core-concepts/infrastructure",
-                  "products/capx-cloud/core-concepts/symbiotic",
-                  "products/capx-cloud/core-concepts/vaults",
-                  "products/capx-cloud/core-concepts/operators",
-                  "products/capx-cloud/core-concepts/performer",
-                  "products/capx-cloud/core-concepts/attestor",
-                  "products/capx-cloud/core-concepts/delegator",
-                  "products/capx-cloud/core-concepts/resolver"
+                  "capx-cloud/core-concepts/infrastructure",
+                  "capx-cloud/core-concepts/symbiotic",
+                  "capx-cloud/core-concepts/vaults",
+                  "capx-cloud/core-concepts/operators",
+                  "capx-cloud/core-concepts/performer",
+                  "capx-cloud/core-concepts/attestor",
+                  "capx-cloud/core-concepts/delegator",
+                  "capx-cloud/core-concepts/resolver"
                 ]
               },
-              "products/capx-cloud/getting-started"
+              "capx-cloud/getting-started"
             ]
           }
         ]
@@ -98,10 +98,10 @@
                 "group": "Key Concepts",
                 "icon": "lightbulb",
                 "pages": [
-                  "guides/developer/key-concepts/cloud-hosting-model",
-                  "guides/developer/key-concepts/agent-tokenization",
-                  "guides/developer/key-concepts/agent-lifecycle",
-                  "guides/developer/key-concepts/security-model"
+                  "guides/operator/key-concepts/cloud-hosting-model",
+                  "guides/operator/key-concepts/agent-tokenization",
+                  "guides/operator/key-concepts/agent-lifecycle",
+                  "guides/operator/key-concepts/security-model"
                 ]
               },
               {
@@ -144,7 +144,7 @@
         "tab": "🤝 Partnerships",
         "icon": "handshake",
         "pages": [
-          "partnership/info"
+          "partnership"
         ]
       }
     ]
