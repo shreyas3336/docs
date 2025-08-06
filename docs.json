@@ -172,5 +172,11 @@
       "github": "https://github.com/capx-ai",
       "discord": "https://discord.com/invite/capx"
     }
+  },
+  "seo": {
+    "metatags": {
+      "og:image": "/images/Capx_Docs.jpg",
+      "og:title": "Capx AI Docs"
+    }
   }
 }
