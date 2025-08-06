@@ -175,8 +175,10 @@
   },
   "seo": {
     "metatags": {
-      "og:image": "/images/Capx_Docs.jpg",
-      "og:title": "Capx AI Docs"
+      "og:image": "/images/Capx_Docs.jpg?v=2",
+      "og:title": "Capx AI Docs",
+      "twitter:image": "/images/Capx_Docs.jpg?v=2",
+      "twitter:card": "summary_large_image"
     }
   }
 }
