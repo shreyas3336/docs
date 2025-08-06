@@ -175,10 +175,13 @@
   },
   "seo": {
     "metatags": {
-      "og:image": "/images/Capx_Docs.jpg?v=2",
+      "og:image": "https://firebasestorage.googleapis.com/v0/b/capx-app.appspot.com/o/Capx_Docs.jpg?alt=media&token=1dbcf6a5-a567-48c3-81fb-f8992efa9feb",
       "og:title": "Capx AI Docs",
-      "twitter:image": "/images/Capx_Docs.jpg?v=2",
-      "twitter:card": "summary_large_image"
+      "og:description": "A Decentralized Protocol for AI Apps Ownership, Monetization, and Liquidity",
+      "twitter:image": "https://firebasestorage.googleapis.com/v0/b/capx-app.appspot.com/o/Capx_Docs.jpg?alt=media&token=1dbcf6a5-a567-48c3-81fb-f8992efa9feb",
+      "twitter:card": "summary_large_image",
+      "twitter:title": "Capx AI Docs",
+      "twitter:description": "A Decentralized Protocol for AI Apps Ownership, Monetization, and Liquidity"
     }
   }
 }
