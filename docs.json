@@ -2,7 +2,6 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Capx AI",
-  "ogImage": "https://firebasestorage.googleapis.com/v0/b/capx-app.appspot.com/o/Capx_Docs.jpg?alt=media&token=1dbcf6a5-a567-48c3-81fb-f8992efa9feb",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
