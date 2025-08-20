@@ -1,0 +1,97 @@
+---
+title: 'Quick Start'
+icon: 'play'
+description: 'Build your first AI-powered application in 5 minutes using Capx ADK'
+---
+
+# Create Your First App
+
+## Step 1: Generate Project
+
+Run the Capx ADK scaffolding tool:
+
+```bash
+npx capx-adk@latest my-ai-app --plugins=vercel-ai
+```
+
+This creates a Next.js project with:
+- Vercel AI SDK integration
+- OpenAI GPT streaming chat
+- TypeScript configuration
+- Tailwind CSS styling
+- Working example pages
+
+## Step 2: Navigate to Project
+
+```bash
+cd my-ai-app
+```
+
+## Step 3: Configure Environment
+
+Create your environment file:
+
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local` and add your OpenAI API key:
+
+```env
+OPENAI_API_KEY=sk-...
+```
+
+Get your API key from [OpenAI Platform](https://platform.openai.com/api-keys).
+
+## Step 4: Install Dependencies
+
+If dependencies weren't auto-installed:
+
+```bash
+npm install
+```
+
+## Step 5: Start Development Server
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to see your app!
+
+## What You Get
+
+Your generated project includes:
+
+## Working AI Chat Interface
+
+Navigate to `/vercel-ai` to see a complete chat interface with:
+- Streaming responses from OpenAI
+- Message history
+- Loading states
+- Error handling
+
+## Project Structure
+
+```
+my-ai-app/
+├── src/
+│   ├── pages/
+│   │   ├── index.tsx         # Home page
+│   │   ├── vercel-ai.tsx     # AI chat interface
+│   │   └── api/
+│   │       └── chat.ts       # AI chat endpoint
+│   ├── components/           # Reusable components
+│   └── styles/              # CSS styles
+├── public/                  # Static assets
+├── .env.example            # Environment template
+└── package.json           # Dependencies
+```
+
+## Pre-configured Features
+
+- **Next.js 14+** with App Router support
+- **TypeScript** for type safety
+- **Tailwind CSS** for styling
+- **Vercel AI SDK** for streaming
+- **OpenAI Integration** ready to use

@@ -1,0 +1,115 @@
+---
+title: 'Privy'
+icon: 'key'
+description: 'Privy provides seamless authentication for Web3 and Web2 users with wallet connections, social logins, and embedded wallets.'
+---
+
+## Quick Start
+
+```bash
+npx capx-adk@latest my-app --plugins=privy
+```
+
+## Configuration
+
+Add to `.env.local`:
+```env
+NEXT_PUBLIC_PRIVY_APP_ID=your_app_id
+PRIVY_APP_SECRET=your_app_secret
+```
+
+## Basic Setup
+
+```typescript
+// app/providers.tsx
+'use client';
+
+import { PrivyProvider } from '@privy-io/react-auth';
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  return (
+    <PrivyProvider
+      appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID!}
+      config={{
+        loginMethods: ['email', 'wallet', 'google'],
+        embeddedWallets: {
+          createOnLogin: 'users-without-wallets',
+        },
+      }}
+    >
+      {children}
+    </PrivyProvider>
+  );
+}
+```
+
+## Authentication
+
+```typescript
+import { usePrivy } from '@privy-io/react-auth';
+
+export function AuthButton() {
+  const { ready, authenticated, user, login, logout } = usePrivy();
+  
+  if (!ready) return <div>Loading...</div>;
+  
+  if (authenticated) {
+    return (
+      <div>
+        <p>{user?.email || user?.wallet?.address}</p>
+        <button onClick={logout}>Logout</button>
+      </div>
+    );
+  }
+  
+  return <button onClick={login}>Login</button>;
+}
+```
+
+## Wallet Operations
+
+```typescript
+import { useWallets } from '@privy-io/react-auth';
+
+function WalletManager() {
+  const { wallets } = useWallets();
+  
+  const sendTransaction = async () => {
+    if (!wallets[0]) return;
+    
+    const provider = await wallets[0].getEthersProvider();
+    const signer = provider.getSigner();
+    
+    const tx = await signer.sendTransaction({
+      to: '0x...',
+      value: ethers.parseEther('0.01'),
+    });
+    
+    await tx.wait();
+  };
+  
+  return (
+    <div>
+      {wallets.map((wallet) => (
+        <div key={wallet.address}>
+          <p>{wallet.address}</p>
+          <p>Chain: {wallet.chainId}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+## Features
+
+- **Multiple Auth Methods**: Email, wallet, social logins
+- **Embedded Wallets**: Auto-create wallets for users
+- **Session Management**: Built-in token handling
+- **Account Linking**: Connect multiple auth methods
+- **Fiat On-ramp**: Direct funding options
+
+## Resources
+
+- [Privy Documentation](https://docs.privy.io/)
+- [Dashboard](https://dashboard.privy.io/)

@@ -1,0 +1,233 @@
+---
+title: 'Firebase'
+icon: 'fire'
+description: 'Build serverless applications with Firebase'
+---
+
+## Features
+
+- Firestore NoSQL database
+- Real-time data synchronization
+- Authentication providers
+- Cloud Functions
+- Cloud Storage
+- Firebase Hosting
+
+## Quick Start
+
+```bash
+npx capx-adk@latest my-app --plugins= firebase
+cd my-app
+npm run dev
+```
+
+## Configuration
+
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+```
+
+## Firebase Initialization
+
+```typescript
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
+import { getFunctions } from 'firebase/functions';
+
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+};
+
+const app = initializeApp(firebaseConfig);
+
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
+export const functions = getFunctions(app);
+```
+
+## Authentication
+
+### Email/Password
+
+```typescript
+import { 
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut 
+} from 'firebase/auth';
+
+async function signUp(email: string, password: string) {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth, 
+      email, 
+      password
+    );
+    return userCredential.user;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function signIn(email: string, password: string) {
+  const userCredential = await signInWithEmailAndPassword(
+    auth, 
+    email, 
+    password
+  );
+  return userCredential.user;
+}
+
+async function logout() {
+  await signOut(auth);
+}
+```
+
+### Social Providers
+
+```typescript
+import { 
+  GoogleAuthProvider,
+  GithubAuthProvider,
+  signInWithPopup 
+} from 'firebase/auth';
+
+async function signInWithGoogle() {
+  const provider = new GoogleAuthProvider();
+  const result = await signInWithPopup(auth, provider);
+  return result.user;
+}
+
+async function signInWithGitHub() {
+  const provider = new GithubAuthProvider();
+  const result = await signInWithPopup(auth, provider);
+  return result.user;
+}
+```
+
+### Auth State Hook
+
+```typescript
+import { onAuthStateChanged, User } from 'firebase/auth';
+
+function useAuth() {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+      setLoading(false);
+    });
+    
+    return unsubscribe;
+  }, []);
+  
+  return { user, loading };
+}
+```
+
+## Firestore Database
+
+### CRUD Operations
+
+```typescript
+import { 
+  collection,
+  doc,
+  addDoc,
+  getDoc,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  query,
+  where,
+  orderBy,
+  limit 
+} from 'firebase/firestore';
+
+// Create
+async function createDocument(collectionName: string, data: any) {
+  const docRef = await addDoc(collection(db, collectionName), {
+    ...data,
+    createdAt: new Date(),
+  });
+  return docRef.id;
+}
+
+// Read single
+async function getDocument(collectionName: string, id: string) {
+  const docRef = doc(db, collectionName, id);
+  const docSnap = await getDoc(docRef);
+  
+  if (docSnap.exists()) {
+    return { id: docSnap.id, ...docSnap.data() };
+  }
+  return null;
+}
+
+// Read multiple with query
+async function getDocuments(collectionName: string, filters?: any) {
+  let q = collection(db, collectionName);
+  
+  if (filters?.where) {
+    q = query(q, where(...filters.where));
+  }
+  if (filters?.orderBy) {
+    q = query(q, orderBy(...filters.orderBy));
+  }
+  if (filters?.limit) {
+    q = query(q, limit(filters.limit));
+  }
+  
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+}
+
+// Update
+async function updateDocument(
+  collectionName: string, 
+  id: string, 
+  data: any
+) {
+  const docRef = doc(db, collectionName, id);
+  await updateDoc(docRef, {
+    ...data,
+    updatedAt: new Date(),
+  });
+}
+
+// Delete
+async function deleteDocument(collectionName: string, id: string) {
+  await deleteDoc(doc(db, collectionName, id));
+}
+```
+## Best Practices
+
+1. **Security Rules**: Always implement proper security rules
+2. **Indexing**: Create composite indexes for complex queries
+3. **Batch Operations**: Use batch writes for multiple operations
+4. **Caching**: Implement proper caching strategies
+5. **Error Handling**: Handle offline scenarios gracefully
+
+## Resources
+
+- [Firebase Documentation](https://firebase.google.com/docs)
+- [Firebase Console](https://console.firebase.google.com/)
+- [Firebase Extensions](https://firebase.google.com/products/extensions)

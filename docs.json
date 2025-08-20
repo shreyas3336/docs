@@ -81,6 +81,54 @@
               },
               "capx-cloud/getting-started"
             ]
+          },
+          {
+            "group": "Capx ADK",
+            "icon": "trowel",
+            "pages": [
+              "capx-adk/index",
+              "capx-adk/installation",
+              "capx-adk/quick-start",
+              {
+                "group": "Plugins",
+                "icon": "plug",
+                "pages": [
+                  "capx-adk/plugins/index",
+                  {
+                    "group": "AI",
+                    "icon": "robot",
+                    "pages": [
+                      "capx-adk/plugins/vercel-ai"
+                    ]
+                  },
+                  {
+                    "group": "Data & Backend",
+                    "icon": "mattress-pillow",
+                    "pages": [
+                      "capx-adk/plugins/firebase",
+                      "capx-adk/plugins/supabase",
+                      "capx-adk/plugins/vercel-kv"
+                    ]
+                  },
+                  {
+                    "group": "Authentication",
+                    "icon": "lock",
+                    "pages": [
+                      "capx-adk/plugins/privy"
+                    ]
+                  },
+                  {
+                    "group": "Dev Kits",
+                    "icon": "bars",
+                    "pages": [
+                      "capx-adk/plugins/goat",
+                      "capx-adk/plugins/solana-agent"
+                    ]
+                  }
+                ]
+              },
+              "capx-adk/cli-reference"
+            ]
           }
         ]
       },

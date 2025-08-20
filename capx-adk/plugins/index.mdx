@@ -1,0 +1,214 @@
+---
+title: 'Overview'
+icon: 'puzzle-piece'
+description: 'Capx ADK provides production-ready plugins that add specific functionality to your Next.js project. Each plugin includes working examples, proper configuration, and all necessary dependencies.'
+---
+
+## Available Plugins
+
+### AI & Agents
+
+#### vercel-ai
+**Streaming AI chat with Vercel AI SDK**
+- OpenAI GPT-4 integration
+- Real-time streaming responses
+- Chat UI components
+- Token usage tracking
+
+```bash
+npx capx-adk@latest my-app --plugins=vercel-ai
+```
+
+#### goat
+**Autonomous agents with blockchain capabilities**
+- Natural language blockchain operations
+- Multi-chain support (EVM & Solana)
+- Wallet management
+- Token operations
+
+```bash
+npx capx-adk@latest my-app --plugins=goat,evm
+```
+
+#### solana-agent-kit
+**Solana-specific agent framework**
+- 60+ Solana operations
+- Jupiter DEX integration
+- SPL token management
+- Real-time price data
+
+```bash
+npx capx-adk@latest my-app --plugins=solana-agent-kit
+```
+
+### Blockchain
+
+#### solana
+**Solana wallet and dApp development**
+- Phantom & Solflare wallets
+- Transaction building
+- Program interactions
+- NFT support
+
+```bash
+npx capx-adk@latest my-app --plugins=solana
+```
+
+#### evm
+**Ethereum and EVM-compatible chains**
+- MetaMask integration
+- Multi-chain support
+- Smart contract interactions
+- ERC-20/721 tokens
+
+```bash
+npx capx-adk@latest my-app --plugins=evm
+```
+
+#### sui
+**Sui blockchain with Move contracts**
+- Sui wallet integration
+- Move contract calls
+- High-performance transactions
+- Object-centric programming
+
+```bash
+npx capx-adk@latest my-app --plugins=sui
+```
+
+## Authentication
+
+#### privy
+**Web3 authentication**
+- Email/social login
+- Embedded wallets
+- Cross-app wallets
+- Session management
+
+```bash
+npx capx-adk@latest my-app --plugins=privy,evm
+```
+
+### Data & Backend
+
+#### supabase
+**PostgreSQL with real-time and auth**
+- User authentication
+- Real-time subscriptions
+- Row Level Security
+- File storage
+
+```bash
+npx capx-adk@latest my-app --plugins=supabase
+```
+
+#### firebase
+**NoSQL database and Firebase services**
+- Firestore database
+- Firebase Auth
+- Cloud Functions
+- Real-time sync
+
+```bash
+npx capx-adk@latest my-app --plugins=firebase
+```
+
+#### vercel-kv
+**Redis-compatible key-value storage**
+- Caching layer
+- Session storage
+- Rate limiting
+- Leaderboards
+
+```bash
+npx capx-adk@latest my-app --plugins=vercel-kv
+```
+
+## Plugin Features
+
+Each plugin provides:
+
+### 📁 Complete File Structure
+- Working example pages
+- API routes (if needed)
+- Utility functions
+- Type definitions
+
+### 📦 Dependencies
+- Production packages
+- Development tools
+- Type definitions
+- Peer dependencies
+
+### 🔧 Configuration
+- Environment variables template
+- Config files
+- Build settings
+- TypeScript types
+
+### 📚 Documentation
+- README with setup instructions
+- Code comments
+- Usage examples
+- Best practices
+
+## Environment Variables
+
+Each plugin requires specific environment variables:
+
+### AI & Agents Plugins
+```env
+# vercel-ai, goat
+OPENAI_API_KEY=sk-...
+
+# goat specific
+GOAT_CHAIN=evm
+WALLET_PRIVATE_KEY=0x...
+RPC_PROVIDER_URL=https://...
+```
+
+### Blockchain Plugins
+```env
+# solana
+NEXT_PUBLIC_SOLANA_NETWORK=devnet
+NEXT_PUBLIC_RPC_ENDPOINT=https://api.devnet.solana.com
+
+# evm
+NEXT_PUBLIC_ETHEREUM_NETWORK=sepolia
+NEXT_PUBLIC_INFURA_PROJECT_ID=...
+
+# privy
+NEXT_PUBLIC_PRIVY_APP_ID=...
+```
+
+### Data & Backend Plugins
+```env
+# supabase
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+
+# firebase
+NEXT_PUBLIC_FIREBASE_API_KEY=...
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
+
+# vercel-kv
+KV_REST_API_URL=...
+KV_REST_API_TOKEN=...
+```
+
+## Choosing Plugins
+
+### For AI Applications
+- Start with `vercel-ai` for chat interfaces
+- Add `supabase` or `firebase` for data persistence
+- Use `vercel-kv` for caching
+
+### For Web3 Applications
+- Choose your blockchain: `solana`, `evm`, or `sui`
+- Add `privy` for user authentication
+- Include `firebase` or `supabase` for off-chain data
+
+### For AI + Web3
+- Use `goat` for EVM/Solana AI agents
+- Use `solana-agent-kit` for Solana-specific agents
+- Combine with databases for persistence

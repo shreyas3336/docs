@@ -1,0 +1,135 @@
+---
+title: 'Vercel KV'
+icon: 'database'
+description: 'Redis-compatible caching and session storage with Vercel KV'
+---
+
+## Features
+
+- Redis-compatible API
+- Global edge caching
+- Session management
+- Rate limiting
+- Pub/Sub messaging
+- Automatic failover
+
+## Quick Start
+
+```bash
+npx capx-adk@latest my-app --plugins= vercel-kv
+cd my-app
+vercel env pull
+npm run dev
+```
+
+## Configuration
+
+```env
+KV_URL=your_kv_url
+KV_REST_API_URL=your_rest_api_url
+KV_REST_API_TOKEN=your_rest_api_token
+KV_REST_API_READ_ONLY_TOKEN=your_read_only_token
+```
+
+## Basic Setup
+
+```typescript
+import { kv } from '@vercel/kv';
+
+// Or create custom instance
+import { createClient } from '@vercel/kv';
+
+const kvClient = createClient({
+  url: process.env.KV_REST_API_URL,
+  token: process.env.KV_REST_API_TOKEN,
+});
+
+export default kvClient;
+```
+
+## Key-Value Operations
+
+### Basic Operations
+
+```typescript
+// Set value
+await kv.set('user:123', { name: 'John', email: 'john@example.com' });
+
+// Set with expiration (seconds)
+await kv.set('session:abc', { userId: '123' }, { ex: 3600 });
+
+// Get value
+const user = await kv.get('user:123');
+
+// Delete key
+await kv.del('user:123');
+
+// Check if key exists
+const exists = await kv.exists('user:123');
+
+// Set multiple values
+await kv.mset({ 'key1': 'value1', 'key2': 'value2' });
+
+// Get multiple values
+const values = await kv.mget('key1', 'key2');
+```
+
+### Expiration Management
+
+```typescript
+// Set expiration in seconds
+await kv.expire('session:abc', 3600);
+
+// Set expiration timestamp
+await kv.expireat('session:abc', Math.floor(Date.now() / 1000) + 3600);
+
+// Get TTL
+const ttl = await kv.ttl('session:abc');
+
+// Remove expiration
+await kv.persist('session:abc');
+```
+
+## Caching Patterns
+
+### Function Result Caching
+
+```typescript
+async function getCachedData<T>(
+  key: string,
+  fetcher: () => Promise<T>,
+  ttl = 3600
+): Promise<T> {
+  // Try to get from cache
+  const cached = await kv.get<T>(key);
+  if (cached) return cached;
+  
+  // Fetch fresh data
+  const fresh = await fetcher();
+  
+  // Store in cache
+  await kv.set(key, fresh, { ex: ttl });
+  
+  return fresh;
+}
+
+// Usage
+const userData = await getCachedData(
+  `user:${userId}`,
+  () => fetchUserFromDatabase(userId),
+  7200 // 2 hours
+);
+```
+
+## Best Practices
+
+1. **Key Naming**: Use consistent naming conventions (e.g., `type:id:field`)
+2. **TTL Strategy**: Always set TTL for temporary data
+3. **Batch Operations**: Use pipeline for multiple operations
+4. **Error Handling**: Implement retry logic for transient failures
+5. **Monitoring**: Track cache hit rates and performance
+
+## Resources
+
+- [Vercel KV Documentation](https://vercel.com/docs/storage/vercel-kv)
+- [Redis Commands Reference](https://redis.io/commands)
