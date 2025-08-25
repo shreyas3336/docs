@@ -1,0 +1,179 @@
+---
+title: 'EVM'
+icon: 'truck-fast'
+description: 'Build decentralized applications for Ethereum, Polygon, Arbitrum, Optimism, and other EVM-compatible chains.'
+---
+
+## Features
+
+- Multi-chain support
+- Wallet connection (MetaMask, WalletConnect, Coinbase)
+- Smart contract interactions
+- Token operations (ERC20, ERC721, ERC1155)
+- Gas optimization
+- ENS integration
+
+## Quick Start
+
+```bash
+npx capx-adk@latest my-app --plugins=evm
+cd my-app
+npm run dev
+```
+
+## Configuration
+
+```env
+NEXT_PUBLIC_ALCHEMY_ID=your_alchemy_id
+NEXT_PUBLIC_WALLET_CONNECT_ID=your_wc_id
+NEXT_PUBLIC_DEFAULT_CHAIN=mainnet
+```
+
+## Wallet Setup with Wagmi
+
+```typescript
+import { createConfig, configureChains } from 'wagmi';
+import { mainnet, polygon, arbitrum, optimism } from 'wagmi/chains';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { publicProvider } from 'wagmi/providers/public';
+
+const { chains, publicClient } = configureChains(
+  [mainnet, polygon, arbitrum, optimism],
+  [
+    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }),
+    publicProvider()
+  ]
+);
+
+export const wagmiConfig = createConfig({
+  autoConnect: true,
+  connectors: [
+    new MetaMaskConnector({ chains }),
+    new WalletConnectConnector({
+      chains,
+      options: {
+        projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_ID,
+      },
+    }),
+  ],
+  publicClient,
+});
+```
+
+## Smart Contract Interactions
+
+### Read Contract
+
+```typescript
+import { useContractRead } from 'wagmi';
+
+function useTokenBalance(address: string) {
+  const { data, isError, isLoading } = useContractRead({
+    address: TOKEN_CONTRACT_ADDRESS,
+    abi: ERC20_ABI,
+    functionName: 'balanceOf',
+    args: [address],
+  });
+  
+  return { balance: data, isError, isLoading };
+}
+```
+
+### Write Contract
+
+```typescript
+import { useContractWrite, usePrepareContractWrite } from 'wagmi';
+
+function TransferToken() {
+  const { config } = usePrepareContractWrite({
+    address: TOKEN_CONTRACT_ADDRESS,
+    abi: ERC20_ABI,
+    functionName: 'transfer',
+    args: [recipientAddress, amount],
+  });
+  
+  const { write, isLoading } = useContractWrite(config);
+  
+  return (
+    <button onClick={() => write?.()} disabled={!write || isLoading}>
+      Transfer
+    </button>
+  );
+}
+```
+
+## Using Ethers.js
+
+```typescript
+import { ethers } from 'ethers';
+
+async function deployContract() {
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
+  
+  const Contract = new ethers.ContractFactory(abi, bytecode, signer);
+  const contract = await Contract.deploy();
+  await contract.waitForDeployment();
+  
+  return contract.target;
+}
+```
+
+## Token Operations
+
+### ERC20 Token Interactions
+
+```typescript
+async function approveToken(spender: string, amount: bigint) {
+  const contract = new ethers.Contract(tokenAddress, ERC20_ABI, signer);
+  const tx = await contract.approve(spender, amount);
+  await tx.wait();
+}
+
+async function getTokenMetadata(address: string) {
+  const contract = new ethers.Contract(address, ERC20_ABI, provider);
+  const [name, symbol, decimals] = await Promise.all([
+    contract.name(),
+    contract.symbol(),
+    contract.decimals(),
+  ]);
+  
+  return { name, symbol, decimals };
+}
+```
+
+### NFT (ERC721) Operations
+
+```typescript
+async function mintNFT(to: string, tokenURI: string) {
+  const contract = new ethers.Contract(nftAddress, ERC721_ABI, signer);
+  const tx = await contract.safeMint(to, tokenURI);
+  const receipt = await tx.wait();
+  
+  // Get token ID from event
+  const event = receipt.logs.find(log => log.eventName === 'Transfer');
+  return event.args.tokenId;
+}
+
+async function getNFTMetadata(tokenId: number) {
+  const contract = new ethers.Contract(nftAddress, ERC721_ABI, provider);
+  const uri = await contract.tokenURI(tokenId);
+  const response = await fetch(uri);
+  return response.json();
+}
+```
+
+## Best Practices
+
+1. **Gas Estimation**: Always estimate gas before transactions
+2. **Error Handling**: Handle wallet rejections gracefully
+3. **Chain Switching**: Support multiple chains seamlessly
+4. **RPC Fallbacks**: Use multiple RPC providers
+5. **Transaction Monitoring**: Track transaction status
+
+## Resources
+
+- [Ethereum Documentation](https://ethereum.org/developers)
+- [Wagmi Documentation](https://wagmi.sh/)
+- [Ethers.js Documentation](https://docs.ethers.org/)
+- [Viem Documentation](https://viem.sh/)

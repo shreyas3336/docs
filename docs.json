@@ -102,6 +102,15 @@
                     ]
                   },
                   {
+                    "group": "Blockchain",
+                    "icon": "link",
+                    "pages": [
+                      "capx-adk/plugins/evm",
+                      "capx-adk/plugins/solana",
+                      "capx-adk/plugins/sui"
+                    ]
+                  },
+                  {
                     "group": "Data & Backend",
                     "icon": "mattress-pillow",
                     "pages": [

@@ -4,149 +4,144 @@ icon: 'puzzle-piece'
 description: 'Capx ADK provides production-ready plugins that add specific functionality to your Next.js project. Each plugin includes working examples, proper configuration, and all necessary dependencies.'
 ---
 
-## Available Plugins
+# Available Plugins
 
-### AI & Agents
+## AI
 
-#### vercel-ai
-**Streaming AI chat with Vercel AI SDK**
-- OpenAI GPT-4 integration
-- Real-time streaming responses
-- Chat UI components
-- Token usage tracking
+<Card
+  title="vercel-ai"
+  icon="robot"
+  href="/capx-adk/plugins/vercel-ai"
+  arrow="true"
+  cta="Know more"
+>
+  Streaming AI chat with Vercel AI SDK
+</Card>
 
-```bash
-npx capx-adk@latest my-app --plugins=vercel-ai
-```
+## Dev Kits
+<CardGroup cols={2}>
+<Card
+  title="goat"
+  icon="dungeon"
+  href="/capx-adk/plugins/goat"
+  arrow="true"
+  cta="Know more"
+>
+  Autonomous agents with blockchain capabilities
+</Card>
 
-#### goat
-**Autonomous agents with blockchain capabilities**
-- Natural language blockchain operations
-- Multi-chain support (EVM & Solana)
-- Wallet management
-- Token operations
+<Card
+  title="solana-agent-kit"
+  icon="suitcase"
+  href="/capx-adk/plugins/solana-agent"
+  arrow="true"
+  cta="Know more"
+>
+  Solana-specific agent framework
+</Card>
+</CardGroup>
 
-```bash
-npx capx-adk@latest my-app --plugins=goat,evm
-```
+## Blockchain
+<CardGroup cols={3}>
+<Card
+  title="Solana"
+  icon="jet-fighter"
+  href="/capx-adk/plugins/solana"
+  arrow="true"
+  cta="Know more"
+>
+  Solana wallet and dApp development
+</Card>
 
-#### solana-agent-kit
-**Solana-specific agent framework**
-- 60+ Solana operations
-- Jupiter DEX integration
-- SPL token management
-- Real-time price data
+<Card
+  title="EVM"
+  icon="truck-fast"
+  href="/capx-adk/plugins/evm"
+  arrow="true"
+  cta="Know more"
+>
+  Ethereum and EVM-compatible chains
+</Card>
 
-```bash
-npx capx-adk@latest my-app --plugins=solana-agent-kit
-```
-
-### Blockchain
-
-#### solana
-**Solana wallet and dApp development**
-- Phantom & Solflare wallets
-- Transaction building
-- Program interactions
-- NFT support
-
-```bash
-npx capx-adk@latest my-app --plugins=solana
-```
-
-#### evm
-**Ethereum and EVM-compatible chains**
-- MetaMask integration
-- Multi-chain support
-- Smart contract interactions
-- ERC-20/721 tokens
-
-```bash
-npx capx-adk@latest my-app --plugins=evm
-```
-
-#### sui
-**Sui blockchain with Move contracts**
-- Sui wallet integration
-- Move contract calls
-- High-performance transactions
-- Object-centric programming
-
-```bash
-npx capx-adk@latest my-app --plugins=sui
-```
+<Card
+  title="Sui"
+  icon="dragon"
+  href="/capx-adk/plugins/sui"
+  arrow="true"
+  cta="Know more"
+>
+  Sui blockchain with Move contracts
+</Card>
+</CardGroup>
 
 ## Authentication
 
-#### privy
-**Web3 authentication**
-- Email/social login
-- Embedded wallets
-- Cross-app wallets
-- Session management
+<Card
+  title="privy"
+  icon="key"
+  href="/capx-adk/plugins/privy"
+  arrow="true"
+  cta="Know more"
+>
+  Web3 authentication
+</Card>
 
-```bash
-npx capx-adk@latest my-app --plugins=privy,evm
-```
+## Data & Backend
 
-### Data & Backend
+<CardGroup cols={3}>
+<Card
+  title="Supabase"
+  icon="bolt-lightning"
+  href="/capx-adk/plugins/supabase"
+  arrow="true"
+  cta="Know more"
+>
+  PostgreSQL with real-time and auth
+</Card>
 
-#### supabase
-**PostgreSQL with real-time and auth**
-- User authentication
-- Real-time subscriptions
-- Row Level Security
-- File storage
+<Card
+  title="Firebase"
+  icon="fire"
+  href="/capx-adk/plugins/firebase"
+  arrow="true"
+  cta="Know more"
+>
+  NoSQL database and Firebase services
+</Card>
 
-```bash
-npx capx-adk@latest my-app --plugins=supabase
-```
-
-#### firebase
-**NoSQL database and Firebase services**
-- Firestore database
-- Firebase Auth
-- Cloud Functions
-- Real-time sync
-
-```bash
-npx capx-adk@latest my-app --plugins=firebase
-```
-
-#### vercel-kv
-**Redis-compatible key-value storage**
-- Caching layer
-- Session storage
-- Rate limiting
-- Leaderboards
-
-```bash
-npx capx-adk@latest my-app --plugins=vercel-kv
-```
-
+<Card
+  title="vercel-kv"
+  icon="database"
+  href="/capx-adk/plugins/vercel-kv"
+  arrow="true"
+  cta="Know more"
+>
+  Redis-compatible key-value storage
+</Card>
+</CardGroup>
 ## Plugin Features
 
 Each plugin provides:
 
-### 📁 Complete File Structure
+#### 📁 Complete File Structure
 - Working example pages
 - API routes (if needed)
 - Utility functions
 - Type definitions
 
-### 📦 Dependencies
+#### 📦 Dependencies
 - Production packages
 - Development tools
 - Type definitions
 - Peer dependencies
 
-### 🔧 Configuration
+#### 🔧 Configuration
 - Environment variables template
 - Config files
 - Build settings
 - TypeScript types
 
-### 📚 Documentation
+#### 📚 Documentation
 - README with setup instructions
 - Code comments
 - Usage examples
@@ -156,7 +151,7 @@ Each plugin provides:
 
 Each plugin requires specific environment variables:
 
-### AI & Agents Plugins
+### AI & Dev-Kit Plugins
 ```env
 # vercel-ai, goat
 OPENAI_API_KEY=sk-...
