@@ -1,17 +1,17 @@
 ---
 title: 'CLI Commands'
 icon: 'terminal'
-description: 'Capx ADK command line interface reference'
+description: 'Capx Compose command line interface reference'
 ---
 
 ## Main Command
 
-### capx-adk
+### capx-compose
 
 Create a new Next.js project with selected plugins.
 
 ```bash
-capx-adk <project-name> [options]
+capx-compose <project-name> [options]
 ```
 
 **Arguments:**
@@ -32,40 +32,40 @@ capx-adk <project-name> [options]
 
 ```bash
 # Interactive mode
-capx-adk my-app
+capx-compose my-app
 
 # With specific plugins
-capx-adk my-app --plugins=vercel-ai,supabase
+capx-compose my-app --plugins=vercel-ai,supabase
 
 # Multiple plugins with package manager
-capx-adk my-app --plugins=solana,firebase --use-pnpm
+capx-compose my-app --plugins=solana,firebase --use-pnpm
 
 # Skip installation
-capx-adk my-app --plugins=goat,evm --skip-install
+capx-compose my-app --plugins=goat,evm --skip-install
 
 # Accept defaults
-capx-adk my-app -y
+capx-compose my-app -y
 ```
 
 ## Using with npx
 
-The recommended way to use Capx ADK without global installation:
+The recommended way to use Capx Compose without global installation:
 
 ```bash
-npx capx-adk@latest <project-name> [options]
+npx capx-compose@latest <project-name> [options]
 ```
 
 **Examples:**
 
 ```bash
 # Latest version
-npx capx-adk@latest my-app
+npx capx-compose@latest my-app
 
 # Specific version
-npx capx-adk@0.1.1 my-app
+npx capx-compose@0.1.1 my-app
 
 # With plugins
-npx capx-adk@latest my-app --plugins=vercel-ai
+npx capx-compose@latest my-app --plugins=vercel-ai
 ```
 
 ## Plugin Commands
@@ -75,14 +75,14 @@ npx capx-adk@latest my-app --plugins=vercel-ai
 List all available plugins.
 
 ```bash
-capx-adk plugins list [options]
+capx-compose plugins list [options]
 ```
 
 **Example:**
 
 ```bash
 # List all valid plugins
-capx-adk plugins list
+capx-compose plugins list
 ```
 
 ### `plugins show`
@@ -90,7 +90,7 @@ capx-adk plugins list
 Show details for a specific plugin.
 
 ```bash
-capx-adk plugins show <plugin>
+capx-compose plugins show <plugin>
 ```
 
 **Arguments:**
@@ -100,8 +100,8 @@ capx-adk plugins show <plugin>
 
 ```bash
 # Show vercel-ai plugin details
-capx-adk plugins show vercel-ai
+capx-compose plugins show vercel-ai
 
 # Show supabase plugin details
-capx-adk plugins show supabase
+capx-compose plugins show supabase
 ```

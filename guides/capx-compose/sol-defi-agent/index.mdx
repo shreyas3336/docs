@@ -1,0 +1,43 @@
+---
+title: 'Overview'
+icon: 'eye'
+---
+In the rapidly evolving world of AI and web3, DeFi agents are becoming the next big thing. These AI-powered assistants can execute trades, manage portfolios, and interact with DeFi protocols through natural language. What used to require deep knowledge of smart contracts and Web3 libraries can now be built in minutes using AI coding assistants. That being said, one of the biggest challenges for most people is usually the setup. Connecting AI models to blockchain protocols, handling wallet interactions, managing transaction signing - it's a maze of dependencies and configurations. Most developers spend hours just getting the basic infrastructure working before they can even start building their actual agent.
+
+## **Introducing Capx Compose**
+
+With `capx-compose`, you can skip all that setup and get a fully configured DeFi agent starter in one command. Combine it with AI IDEs like Cursor and you can have a customised working Solana DeFi agent that manages wallets and executes transactions in under 10 minutes.
+
+## **What are we building today?**
+
+A DeFi agent is essentially a chatbot with blockchain superpowers. When you type "swap 1 SOL for USDC", it understands your intent, connects to the blockchain, executes the transaction, and reports back - all through a conversational interface. Think of it as having a smart assistant that speaks both human language and blockchain.
+
+By the end of this guide you’d have a DeFI agent that can:
+
+- Send SOL tokens to any Solana address
+- Check wallet balances for SOL and SPL tokens
+- Execute basic token operations on devnet
+- Respond to natural language commands
+- Stream AI responses in real-time
+
+We'll use capx-compose to scaffold the project with all the blockchain integrations pre-configured, then extend it using Cursor's AI capabilities to add custom features.
+
+## **The integrations that make this possible**
+
+- **Vercel AI SDK** - handles streaming conversations and tool calling with OpenAI's GPT models
+- **GOAT SDK**(by Crossmint) - provides blockchain operations like swaps and transfers as simple functions
+- **Solana Web3.js** - manages wallet connections and transaction signing on Solana
+- **Next.js** - powers the web interface and the server side API routes.
+
+<Tip>
+We'll be working on Solana devnet for testing. Token swaps through Jupiter have limited availability on devnet due to reduced liquidity pools. Most operations will focus on SOL transfers and balance checks. Feel free to later move things to mainnet.
+</Tip>
+
+**Prerequisites** 
+
+Before we begin, make sure you have:
+
+- Node.js 18 or higher installed
+- An OpenAI API key from [platform.openai.com](https://platform.openai.com/)
+- Cursor, Claude, or any AI IDE for the customization part
+- A Solana wallet (we'll use a burner wallet for testing)

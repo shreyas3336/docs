@@ -1,0 +1,18 @@
+---
+title: 'Troubleshooting'
+icon: 'headset'
+---
+
+- **Insufficient balance errors**
+    - Get test SOL from https://faucet.solana.com (select devnet)
+    - Verify your wallet private key is in base58 format in `.env.local`
+    - Check you're connected to devnet (`RPC_PROVIDER_URL=https://api.devnet.solana.com`)
+- **Agent not responding**
+    - Verify your OpenAI API key is valid and has credits
+    - Check browser console for specific error messages
+    - Ensure all environment variables are set correctly
+- **GOAT_CHAIN must be set error**
+    - Add `GOAT_CHAIN=solana` to your `.env.local` file
+- **Module not found errors**
+    - Run `npm install` to ensure all dependencies are installed
+    - Check that all GOAT SDK packages are listed in package.json

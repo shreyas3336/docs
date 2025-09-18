@@ -83,60 +83,60 @@
             ]
           },
           {
-            "group": "Capx ADK",
+            "group": "Capx Compose",
             "icon": "trowel",
             "pages": [
-              "capx-adk/index",
-              "capx-adk/installation",
-              "capx-adk/quick-start",
+              "capx-compose/index",
+              "capx-compose/installation",
+              "capx-compose/quick-start",
               {
                 "group": "Plugins",
                 "icon": "plug",
                 "pages": [
-                  "capx-adk/plugins/index",
+                  "capx-compose/plugins/index",
                   {
                     "group": "AI",
                     "icon": "robot",
                     "pages": [
-                      "capx-adk/plugins/vercel-ai"
+                      "capx-compose/plugins/vercel-ai"
                     ]
                   },
                   {
                     "group": "Blockchain",
                     "icon": "link",
                     "pages": [
-                      "capx-adk/plugins/evm",
-                      "capx-adk/plugins/solana",
-                      "capx-adk/plugins/sui"
+                      "capx-compose/plugins/evm",
+                      "capx-compose/plugins/solana",
+                      "capx-compose/plugins/sui"
                     ]
                   },
                   {
                     "group": "Data & Backend",
                     "icon": "mattress-pillow",
                     "pages": [
-                      "capx-adk/plugins/firebase",
-                      "capx-adk/plugins/supabase",
-                      "capx-adk/plugins/vercel-kv"
+                      "capx-compose/plugins/firebase",
+                      "capx-compose/plugins/supabase",
+                      "capx-compose/plugins/vercel-kv"
                     ]
                   },
                   {
                     "group": "Authentication",
                     "icon": "lock",
                     "pages": [
-                      "capx-adk/plugins/privy"
+                      "capx-compose/plugins/privy"
                     ]
                   },
                   {
                     "group": "Dev Kits",
                     "icon": "bars",
                     "pages": [
-                      "capx-adk/plugins/goat",
-                      "capx-adk/plugins/solana-agent"
+                      "capx-compose/plugins/goat",
+                      "capx-compose/plugins/solana-agent"
                     ]
                   }
                 ]
               },
-              "capx-adk/cli-reference"
+              "capx-compose/cli-reference"
             ]
           }
         ]
@@ -193,6 +193,34 @@
                 ]
               },
               "guides/operator/faq"
+            ]
+          },
+          {
+            "group": "Capx Compose Guides",
+            "icon": "inbox",
+            "pages": [
+              {
+                "group": "Solana DeFi Agent",
+                "icon": "jet-fighter",
+                "pages": [
+                  "guides/capx-compose/sol-defi-agent/index",
+                  "guides/capx-compose/sol-defi-agent/how-to-get-started",
+                  "guides/capx-compose/sol-defi-agent/whats-next",
+                  "guides/capx-compose/sol-defi-agent/troubleshooting",
+                  "guides/capx-compose/sol-defi-agent/conclusion"
+                ]
+              },
+              {
+                "group": "Arbitrum DeFi Agent",
+                "icon": "truck-fast",
+                "pages": [
+                  "guides/capx-compose/arb-defi-agent/index",
+                  "guides/capx-compose/arb-defi-agent/how-to-get-started",
+                  "guides/capx-compose/arb-defi-agent/whats-next",
+                  "guides/capx-compose/arb-defi-agent/troubleshooting",
+                  "guides/capx-compose/arb-defi-agent/conclusion"
+                ]
+              }
             ]
           }
         ]

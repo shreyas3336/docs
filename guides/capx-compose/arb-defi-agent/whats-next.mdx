@@ -1,0 +1,74 @@
+---
+title: "What's next?"
+icon: 'diagram-successor'
+---
+
+You've just built a functional DeFi agent! Here are some ideas to extend it:
+
+## Next Steps
+
+### **Extend with AI tools**
+
+Start vibe coding with Cursor (or any AI IDE):
+
+```bash
+cursor .  # Opens project in Cursor
+```
+
+Your agent's configuration lives in the wallet config file we just edited. In Cursor, press Cmd+K (or Ctrl+K on Windows) and describe what you want:
+
+- "Add Uniswap integration for token swaps"
+- "Create a portfolio dashboard showing all holdings"
+- "Add quick action buttons for common operations"
+- "Show L1 and L2 gas costs separately"
+
+Ask your AI to understand the GOAT SDK integration and then generate compatible code that works with your existing setup.
+
+<img
+  className="hidden dark:block"
+  src="/images/ADA_5.png"
+  alt="Step 1: Generate the project"
+/>
+
+
+### **Want token swaps? Add Uniswap:**
+
+Goat supports a lot of plugins.
+
+See a list of all the plugins that [GOAT](https://github.com/goat-sdk/goat) supports [here](https://github.com/goat-sdk/goat).
+
+```bash
+npm install @goat-sdk/plugin-uniswap
+```
+
+Then update your plugins in wallet-config.ts:
+
+```tsx
+import { uniswap } from "@goat-sdk/plugin-uniswap";
+
+plugins: [
+  sendETH(),
+  erc20({ tokens: [USDC, PEPE] }),
+  uniswap({
+    apiKey: process.env.UNISWAP_API_KEY // Optional, get from hub.uniswap.org
+  })
+]
+```
+
+Note : When adding plugins for GOAT always check you have the right configurations for it. For example, some plugins only work on mainnet or a particular chain.
+
+## **Ready for mainnet?**
+
+When you're ready for real transactions, update your configuration:
+
+```bash
+.env.local:
+RPC_PROVIDER_URL=https://arb1.arbitrum.io/rpc
+# Add a mainnet private key with actual ETH
+```
+
+Code update in wallet-config.ts:
+
+```tsx
+import { arbitrum } from "viem/chains"; // Instead of arbitrumSepolia
+```
