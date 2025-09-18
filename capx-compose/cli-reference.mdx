@@ -1,0 +1,107 @@
+---
+title: 'CLI Commands'
+icon: 'terminal'
+description: 'Capx Compose command line interface reference'
+---
+
+## Main Command
+
+### capx-compose
+
+Create a new Next.js project with selected plugins.
+
+```bash
+capx-compose <project-name> [options]
+```
+
+**Arguments:**
+- `project-name` - Name of the project directory to create (required)
+
+**Options:**
+- `--plugins <list>` - Comma-separated list of plugins to include
+- `--use-pnpm` - Use pnpm as package manager
+- `--use-yarn` - Use Yarn as package manager
+- `--skip-install` - Skip automatic dependency installation
+- `--eslint` - Include ESLint configuration
+- `--no-eslint` - Skip ESLint configuration
+- `-y, --yes` - Accept all defaults (non-interactive mode)
+- `--dependency-strategy <strategy>` - Dependency resolution strategy (smart|highest|lowest|compatible)
+- `--silent` - Suppress enhanced output
+
+**Examples:**
+
+```bash
+# Interactive mode
+capx-compose my-app
+
+# With specific plugins
+capx-compose my-app --plugins=vercel-ai,supabase
+
+# Multiple plugins with package manager
+capx-compose my-app --plugins=solana,firebase --use-pnpm
+
+# Skip installation
+capx-compose my-app --plugins=goat,evm --skip-install
+
+# Accept defaults
+capx-compose my-app -y
+```
+
+## Using with npx
+
+The recommended way to use Capx Compose without global installation:
+
+```bash
+npx capx-compose@latest <project-name> [options]
+```
+
+**Examples:**
+
+```bash
+# Latest version
+npx capx-compose@latest my-app
+
+# Specific version
+npx capx-compose@0.1.1 my-app
+
+# With plugins
+npx capx-compose@latest my-app --plugins=vercel-ai
+```
+
+## Plugin Commands
+
+### `plugins list`
+
+List all available plugins.
+
+```bash
+capx-compose plugins list [options]
+```
+
+**Example:**
+
+```bash
+# List all valid plugins
+capx-compose plugins list
+```
+
+### `plugins show`
+
+Show details for a specific plugin.
+
+```bash
+capx-compose plugins show <plugin>
+```
+
+**Arguments:**
+- `plugin` - Name of the plugin to show details for
+
+**Example:**
+
+```bash
+# Show vercel-ai plugin details
+capx-compose plugins show vercel-ai
+
+# Show supabase plugin details
+capx-compose plugins show supabase
+```

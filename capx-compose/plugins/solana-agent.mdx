@@ -1,0 +1,152 @@
+---
+title: 'Solana Agent Kit Plugin'
+icon: 'suitcase'
+sidebarTitle : 'Solana Agent Kit'
+description: 'Build AI agents with 60+ Solana blockchain actions'
+---
+
+## Features
+
+- **60+ Actions**: Comprehensive Solana protocol coverage
+- **AI Integration**: LangChain and Vercel AI SDK support
+- **DeFi Protocols**: Jupiter, Orca, Raydium integration
+- **NFT Support**: Full collection and minting capabilities
+- **Blinks**: Action and transaction Blinks support
+- **ZK Compression**: Efficient on-chain operations
+
+## Quick Start
+
+```bash
+npx capx-compose@latest my-app --plugins=solana-agent-kit
+cd my-app
+npm run dev
+```
+
+## Configuration
+
+```env
+OPENAI_API_KEY=sk-...
+SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
+AGENT_PRIVATE_KEY=[...]
+```
+
+## Agent Setup
+
+```typescript
+import { SolanaAgentKit, createSolanaTools } from 'solana-agent-kit';
+import { Keypair } from '@solana/web3.js';
+
+// Initialize wallet
+const keypair = Keypair.fromSecretKey(
+  Uint8Array.from(JSON.parse(process.env.AGENT_PRIVATE_KEY))
+);
+
+// Create agent with plugins
+const agent = new SolanaAgentKit(
+  keypair,
+  process.env.SOLANA_RPC_URL,
+  { OPENAI_API_KEY: process.env.OPENAI_API_KEY }
+);
+```
+
+## Available Actions
+
+### Token Operations
+```typescript
+// Deploy new token
+const token = await agent.deployToken(
+  "My Token",      // name
+  "https://...",   // metadata URI
+  "MTK",          // symbol
+  9,              // decimals
+  1000000         // initial supply
+);
+
+// Transfer tokens
+await agent.transfer(
+  recipientAddress,
+  amount,
+  tokenMintAddress // optional, defaults to SOL
+);
+
+// Swap tokens via Jupiter
+await agent.trade(
+  outputMint,
+  inputAmount,
+  inputMint,
+  slippageBps // 300 = 3%
+);
+```
+
+### NFT Operations
+```typescript
+// Deploy NFT collection
+const collection = await agent.deployCollection({
+  name: "My Collection",
+  uri: "https://...",
+  royaltyBasisPoints: 500 // 5%
+});
+
+// Mint NFT
+await agent.mintNFT(
+  collectionMint,
+  metadata,
+  recipientAddress
+);
+```
+
+### DeFi Actions
+```typescript
+// Stake SOL
+await agent.stakeWithJup(amountInSol);
+
+// Lend assets
+await agent.lendAsset(amount);
+
+// Request price feed
+const price = await agent.fetchPrice(tokenAddress);
+```
+
+## LangChain Integration
+
+```typescript
+import { createSolanaTools } from 'solana-agent-kit/langchain';
+
+const tools = createSolanaTools(agent);
+
+// Use with LangChain
+const llm = new ChatOpenAI();
+const agentExecutor = await createToolCallingAgent({
+  llm,
+  tools,
+  prompt
+});
+```
+
+## Vercel AI SDK Integration
+
+```typescript
+import { solanaAgentTools } from 'solana-agent-kit/vercel';
+
+const tools = solanaAgentTools(agent);
+
+// Use with Vercel AI
+const result = await generateText({
+  model: openai('gpt-4'),
+  tools,
+  prompt: 'Swap 1 SOL for USDC'
+});
+```
+
+## Best Practices
+
+1. **Error Handling**: Always wrap operations in try-catch
+2. **RPC Selection**: Use reliable RPC providers
+3. **Gas Management**: Monitor transaction fees
+4. **Security**: Secure private key storage
+
+## Resources
+
+- [GitHub Repository](https://github.com/sendaifun/solana-agent-kit)
+- [NPM Package](https://www.npmjs.com/package/solana-agent-kit)
+- [Solana Documentation](https://docs.solana.com/)

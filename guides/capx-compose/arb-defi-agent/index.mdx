@@ -1,0 +1,39 @@
+---
+title: 'Overview'
+icon: 'eye'
+---
+Picture this: you're at a hackathon, 24 hours to build something cool. Half your team wants to build a DeFi agent, an AI that can actually execute trades and move money through chat which sounds amazing until you realize you spent 6+ of those hours just setting up things (Web3 connections, debugging wallet signatures…etc). We've all been there. You start with big dreams of building the next autonomous trading bot, but six hours later you're still trying to get Metamask to talk to your backend and the worst part is : Your actual idea hasn't even been touched yet.
+
+In this guide we'll learn how to do this quickly so you can actually ship.
+
+## **What are we building today?**
+
+A DeFi agent is essentially a chatbot with blockchain superpowers. When you type "send 0.1 ETH to alice.eth", it understands your intent, connects to the blockchain, executes the transaction, and reports back all through a conversational interface. Think of it as having a smart assistant that speaks both human language and blockchain.
+
+By the end of this guide you'll have a DeFi agent on Arbitrum that can:
+
+- Send ETH to any address on Arbitrum
+- Send ERC-20 tokens (USDC, PEPE configured by default)
+- Check wallet balances
+- Respond to natural language commands
+- Execute real blockchain transactions
+
+We'll scaffold the foundation with all the blockchain integrations pre-configured, then use Cursor's AI capabilities to add whatever custom features your hackathon idea needs.
+
+## **The integrations that make this possible**
+
+- [**GOAT SDK**](https://github.com/goat-sdk/goat) (by [Crossmint](http://crossmint.com/)) - enables you to give your AI agent a wallet and 200+ tools to transact, trade, and invest on-chain.
+- [**Vercel AI SDK**](https://ai-sdk.dev/) - handles streaming conversations and tool calling with OpenAI's GPT models
+- [**Viem**](https://viem.sh/) - modern, type-safe library for Ethereum and L2 interactions
+- **Next.js** - powers the web interface and server-side API routes
+
+We'll be working on Arbitrum Sepolia testnet for testing. Transactions cost virtually nothing and confirm in seconds. Once your agent works perfectly, switching to mainnet is just changing the RPC URL and chain import.
+
+## **Prerequisites**
+
+Before we begin, make sure you have:
+
+- Node.js 18 or higher installed
+- An OpenAI API key from https://platform.openai.com/
+- Cursor, Claude, or any AI IDE for the customization part later
+- A test wallet (we'll create one together)

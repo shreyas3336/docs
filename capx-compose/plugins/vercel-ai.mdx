@@ -1,0 +1,85 @@
+---
+title: 'Vercel AI'
+icon: 'caret-up'
+description: 'Scaffolds a Next.js project with a complete AI chat interface powered by OpenAI GPT models.'
+---
+## What Gets Scaffolded
+
+When you use this plugin, Capx Compose generates:
+
+### Files Created
+- **Chat interface page** at `/vercel-ai` - Complete chat UI with streaming
+- **API route** at `/api/chat` - Backend endpoint for AI responses
+- **README** with setup instructions and customization guide
+
+### Dependencies Added
+- `ai` - Vercel AI SDK for streaming
+- `@ai-sdk/openai` - OpenAI provider
+- UI utilities (lucide-react, class-variance-authority)
+- Next.js 14, React 18, TypeScript
+
+### Features Included
+- ✅ Real-time streaming chat interface
+- ✅ OpenAI GPT-4o integration
+- ✅ Error handling and loading states
+- ✅ TypeScript types
+- ✅ Production-ready API route
+
+## Quick Start
+
+```bash
+# Scaffold a new project with AI chat
+npx capx-compose@latest my-ai-app --plugins=vercel-ai
+
+# Navigate to project
+cd my-ai-app
+
+# Configure environment
+echo "OPENAI_API_KEY=sk-..." >> .env.local
+
+# Start development
+npm run dev
+```
+
+Visit `http://localhost:3000/vercel-ai` to see the chat interface.
+
+## Environment Variables
+
+```env
+OPENAI_API_KEY=sk-your-openai-api-key
+```
+
+Get your API key from [OpenAI Platform](https://platform.openai.com/api-keys).
+
+## Customization
+
+After scaffolding, you can:
+- Change the AI model in `/api/chat`
+- Modify the chat UI in `/vercel-ai`
+- Add authentication and rate limiting
+- Integrate with databases for message persistence
+
+## Compatible Plugins
+
+Works well with:
+- `supabase` - Add user auth and message storage
+- `firebase` - Alternative backend with real-time sync
+- `vercel-kv` - Add caching for responses
+
+## Example Combinations
+
+```bash
+# AI chat with database
+npx capx-compose@latest my-app --plugins=vercel-ai,supabase
+
+# AI chat with caching
+npx capx-compose@latest my-app --plugins=vercel-ai,vercel-kv
+
+# Full stack AI platform
+npx capx-compose@latest my-app --plugins=vercel-ai,firebase,vercel-kv
+```
+
+## Resources
+
+- [Vercel AI SDK Docs](https://sdk.vercel.ai/docs)
+- [OpenAI API Docs](https://platform.openai.com/docs)

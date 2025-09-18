@@ -1,0 +1,197 @@
+---
+title: 'Solana'
+icon: 'jet-fighter'
+description: 'Build blazing-fast decentralized applications on Solana with integrated wallet support and program interactions.'
+---
+
+## Features
+
+- Wallet connection (Phantom, Solflare, etc.)
+- Program (smart contract) interactions
+- Token operations (SPL tokens)
+- NFT minting and management
+- Transaction building and signing
+- Anchor framework integration
+
+## Quick Start
+
+```bash
+npx capx-compose@latest my-app --plugins=solana
+cd my-app
+npm run dev
+```
+
+## Configuration
+
+```env
+NEXT_PUBLIC_SOLANA_NETWORK=devnet
+NEXT_PUBLIC_RPC_ENDPOINT=https://api.devnet.solana.com
+PROGRAM_ID=your_program_id
+```
+
+## Wallet Connection
+
+```typescript
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
+
+const network = WalletAdapterNetwork.Devnet;
+const endpoint = clusterApiUrl(network);
+const wallets = [new PhantomWalletAdapter()];
+
+export function SolanaProvider({ children }) {
+  return (
+    <ConnectionProvider endpoint={endpoint}>
+      <WalletProvider wallets={wallets} autoConnect>
+        <WalletModalProvider>{children}</WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
+  );
+}
+```
+
+## Program Interactions
+
+### Using Anchor
+
+```typescript
+import { Program, AnchorProvider, web3 } from '@project-serum/anchor';
+import { useAnchorWallet } from '@solana/wallet-adapter-react';
+
+export function useProgram() {
+  const wallet = useAnchorWallet();
+  const connection = new web3.Connection(endpoint);
+  
+  const provider = new AnchorProvider(
+    connection,
+    wallet,
+    { preflightCommitment: 'processed' }
+  );
+  
+  const program = new Program(idl, programId, provider);
+  return program;
+}
+```
+
+### Calling Program Methods
+
+```typescript
+async function initialize() {
+  const program = useProgram();
+  const [pda] = await web3.PublicKey.findProgramAddress(
+    [Buffer.from('seed')],
+    program.programId
+  );
+  
+  await program.methods
+    .initialize()
+    .accounts({
+      user: wallet.publicKey,
+      systemProgram: web3.SystemProgram.programId,
+    })
+    .rpc();
+}
+```
+
+## Token Operations
+
+### Create SPL Token
+
+```typescript
+import { createMint, getOrCreateAssociatedTokenAccount, mintTo } from '@solana/spl-token';
+
+async function createToken() {
+  const mint = await createMint(
+    connection,
+    payer,
+    mintAuthority.publicKey,
+    freezeAuthority.publicKey,
+    9 // Decimals
+  );
+  
+  const tokenAccount = await getOrCreateAssociatedTokenAccount(
+    connection,
+    payer,
+    mint,
+    owner.publicKey
+  );
+  
+  await mintTo(
+    connection,
+    payer,
+    mint,
+    tokenAccount.address,
+    mintAuthority,
+    1000000000 // 1 token with 9 decimals
+  );
+}
+```
+
+### Transfer Tokens
+
+```typescript
+import { transfer } from '@solana/spl-token';
+
+async function transferTokens(from: PublicKey, to: PublicKey, amount: number) {
+  await transfer(
+    connection,
+    payer,
+    from,
+    to,
+    owner,
+    amount
+  );
+}
+```
+
+## NFT Operations
+
+### Mint NFT with Metaplex
+
+```typescript
+import { Metaplex } from '@metaplex-foundation/js';
+
+const metaplex = new Metaplex(connection);
+
+async function mintNFT(metadata: any) {
+  const { nft } = await metaplex.nfts().create({
+    uri: metadata.uri,
+    name: metadata.name,
+    sellerFeeBasisPoints: 500, // 5%
+    symbol: metadata.symbol,
+    creators: [
+      {
+        address: wallet.publicKey,
+        share: 100,
+      },
+    ],
+  });
+  
+  return nft;
+}
+```
+
+## Deployment
+
+### Mainnet Configuration
+
+```env
+NEXT_PUBLIC_SOLANA_NETWORK=mainnet-beta
+NEXT_PUBLIC_RPC_ENDPOINT=https://your-rpc-provider.com
+```
+
+### Program Deployment
+
+```bash
+anchor build
+anchor deploy --provider.cluster mainnet
+```
+
+## Resources
+
+- [Solana Documentation](https://docs.solana.com/)
+- [Anchor Framework](https://www.anchor-lang.com/)
+- [Solana Cookbook](https://solanacookbook.com/)
+- [Metaplex Documentation](https://docs.metaplex.com/)

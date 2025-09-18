@@ -1,0 +1,158 @@
+---
+title: 'Sui'
+icon: 'dragon'
+description: 'Build high-performance decentralized applications on Sui blockchain using the Move programming language.'
+---
+
+## Features
+
+- Sui wallet integration
+- Move contract interactions
+- Object-centric programming
+- Sponsored transactions
+- zkLogin authentication
+- Programmable transaction blocks
+
+## Quick Start
+
+```bash
+npx capx-compose@latest my-app --plugins= sui
+cd my-app
+npm run dev
+```
+
+## Configuration
+
+```env
+NEXT_PUBLIC_SUI_NETWORK=testnet
+NEXT_PUBLIC_FULLNODE_URL=https://fullnode.testnet.sui.io:443
+PACKAGE_ID=0x...
+```
+
+## Wallet Connection
+
+```typescript
+import { ConnectButton, useCurrentAccount } from '@mysten/dapp-kit';
+import { WalletProvider } from '@mysten/dapp-kit';
+import { getFullnodeUrl, SuiClient } from '@mysten/sui.js/client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
+const networks = {
+  testnet: { url: getFullnodeUrl('testnet') },
+  mainnet: { url: getFullnodeUrl('mainnet') },
+};
+
+export function SuiProvider({ children }) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <WalletProvider networks={networks}>
+        {children}
+      </WalletProvider>
+    </QueryClientProvider>
+  );
+}
+```
+
+## Move Contract Interactions
+
+### Call Move Functions
+
+```typescript
+import { TransactionBlock } from '@mysten/sui.js/transactions';
+import { useSignAndExecuteTransactionBlock } from '@mysten/dapp-kit';
+
+function useMoveCall() {
+  const { mutate: signAndExecute } = useSignAndExecuteTransactionBlock();
+  
+  const callFunction = async () => {
+    const tx = new TransactionBlock();
+    
+    tx.moveCall({
+      target: `${PACKAGE_ID}::module::function`,
+      arguments: [
+        tx.pure('argument1'),
+        tx.object('0x...'), // Object ID
+      ],
+    });
+    
+    signAndExecute(
+      {
+        transactionBlock: tx,
+        options: {
+          showEffects: true,
+          showObjectChanges: true,
+        },
+      },
+      {
+        onSuccess: (result) => {
+          console.log('Transaction successful:', result);
+        },
+      }
+    );
+  };
+  
+  return { callFunction };
+}
+```
+
+## Object Management
+
+### Create Objects
+
+```typescript
+async function createObject() {
+  const tx = new TransactionBlock();
+  
+  const [coin] = tx.splitCoins(tx.gas, [tx.pure(1000000)]);
+  
+  tx.moveCall({
+    target: `${PACKAGE_ID}::nft::mint`,
+    arguments: [
+      tx.pure('NFT Name'),
+      tx.pure('Description'),
+      tx.pure('https://image.url'),
+      coin,
+    ],
+  });
+  
+  const result = await signAndExecute({ transactionBlock: tx });
+  
+  // Get created object from results
+  const createdObject = result.objectChanges?.find(
+    (change) => change.type === 'created'
+  );
+  
+  return createdObject?.objectId;
+}
+```
+
+### Transfer Objects
+
+```typescript
+async function transferObject(objectId: string, recipient: string) {
+  const tx = new TransactionBlock();
+  
+  tx.transferObjects(
+    [tx.object(objectId)],
+    tx.pure(recipient)
+  );
+  
+  await signAndExecute({ transactionBlock: tx });
+}
+```
+
+## Best Practices
+
+1. **Object Ownership**: Understand shared vs owned objects
+2. **Gas Management**: Optimize transaction batching
+3. **Error Handling**: Handle Move abort codes properly
+4. **Type Safety**: Use TypeScript types for Move structs
+5. **Testing**: Test Move modules thoroughly
+
+## Resources
+
+- [Sui Documentation](https://docs.sui.io/)
+- [Move Language Book](https://move-language.github.io/move/)
+- [Sui TypeScript SDK](https://sdk.mystenlabs.com/typescript)
+- [Sui Explorer](https://suiexplorer.com/)

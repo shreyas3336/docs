@@ -1,0 +1,209 @@
+---
+title: 'Overview'
+icon: 'puzzle-piece'
+description: 'Capx Compose provides production-ready plugins that add specific functionality to your Next.js project. Each plugin includes working examples, proper configuration, and all necessary dependencies.'
+---
+
+# Available Plugins
+
+## AI
+
+<Card
+  title="vercel-ai"
+  icon="robot"
+  href="/capx-compose/plugins/vercel-ai"
+  arrow="true"
+  cta="Know more"
+>
+  Streaming AI chat with Vercel AI SDK
+</Card>
+
+## Dev Kits
+<CardGroup cols={2}>
+<Card
+  title="goat"
+  icon="dungeon"
+  href="/capx-compose/plugins/goat"
+  arrow="true"
+  cta="Know more"
+>
+  Autonomous agents with blockchain capabilities
+</Card>
+
+<Card
+  title="solana-agent-kit"
+  icon="suitcase"
+  href="/capx-compose/plugins/solana-agent"
+  arrow="true"
+  cta="Know more"
+>
+  Solana-specific agent framework
+</Card>
+</CardGroup>
+
+## Blockchain
+<CardGroup cols={3}>
+<Card
+  title="Solana"
+  icon="jet-fighter"
+  href="/capx-compose/plugins/solana"
+  arrow="true"
+  cta="Know more"
+>
+  Solana wallet and dApp development
+</Card>
+
+<Card
+  title="EVM"
+  icon="truck-fast"
+  href="/capx-compose/plugins/evm"
+  arrow="true"
+  cta="Know more"
+>
+  Ethereum and EVM-compatible chains
+</Card>
+
+<Card
+  title="Sui"
+  icon="dragon"
+  href="/capx-compose/plugins/sui"
+  arrow="true"
+  cta="Know more"
+>
+  Sui blockchain with Move contracts
+</Card>
+</CardGroup>
+
+## Authentication
+
+<Card
+  title="privy"
+  icon="key"
+  href="/capx-compose/plugins/privy"
+  arrow="true"
+  cta="Know more"
+>
+  Web3 authentication
+</Card>
+
+## Data & Backend
+
+<CardGroup cols={3}>
+<Card
+  title="Supabase"
+  icon="bolt-lightning"
+  href="/capx-compose/plugins/supabase"
+  arrow="true"
+  cta="Know more"
+>
+  PostgreSQL with real-time and auth
+</Card>
+
+<Card
+  title="Firebase"
+  icon="fire"
+  href="/capx-compose/plugins/firebase"
+  arrow="true"
+  cta="Know more"
+>
+  NoSQL database and Firebase services
+</Card>
+
+<Card
+  title="vercel-kv"
+  icon="database"
+  href="/capx-compose/plugins/vercel-kv"
+  arrow="true"
+  cta="Know more"
+>
+  Redis-compatible key-value storage
+</Card>
+</CardGroup>
+## Plugin Features
+
+Each plugin provides:
+
+#### 📁 Complete File Structure
+- Working example pages
+- API routes (if needed)
+- Utility functions
+- Type definitions
+
+#### 📦 Dependencies
+- Production packages
+- Development tools
+- Type definitions
+- Peer dependencies
+
+#### 🔧 Configuration
+- Environment variables template
+- Config files
+- Build settings
+- TypeScript types
+
+#### 📚 Documentation
+- README with setup instructions
+- Code comments
+- Usage examples
+- Best practices
+
+## Environment Variables
+
+Each plugin requires specific environment variables:
+
+### AI & Dev-Kit Plugins
+```env
+# vercel-ai, goat
+OPENAI_API_KEY=sk-...
+
+# goat specific
+GOAT_CHAIN=evm
+WALLET_PRIVATE_KEY=0x...
+RPC_PROVIDER_URL=https://...
+```
+
+### Blockchain Plugins
+```env
+# solana
+NEXT_PUBLIC_SOLANA_NETWORK=devnet
+NEXT_PUBLIC_RPC_ENDPOINT=https://api.devnet.solana.com
+
+# evm
+NEXT_PUBLIC_ETHEREUM_NETWORK=sepolia
+NEXT_PUBLIC_INFURA_PROJECT_ID=...
+
+# privy
+NEXT_PUBLIC_PRIVY_APP_ID=...
+```
+
+### Data & Backend Plugins
+```env
+# supabase
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+
+# firebase
+NEXT_PUBLIC_FIREBASE_API_KEY=...
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
+
+# vercel-kv
+KV_REST_API_URL=...
+KV_REST_API_TOKEN=...
+```
+
+## Choosing Plugins
+
+### For AI Applications
+- Start with `vercel-ai` for chat interfaces
+- Add `supabase` or `firebase` for data persistence
+- Use `vercel-kv` for caching
+
+### For Web3 Applications
+- Choose your blockchain: `solana`, `evm`, or `sui`
+- Add `privy` for user authentication
+- Include `firebase` or `supabase` for off-chain data
+
+### For AI + Web3
+- Use `goat` for EVM/Solana AI agents
+- Use `solana-agent-kit` for Solana-specific agents
+- Combine with databases for persistence

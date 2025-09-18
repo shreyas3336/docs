@@ -1,0 +1,109 @@
+---
+title: 'Overview'
+icon: 'book'
+description: 'Capx Compose is a powerful CLI scaffolding tool that generates production-ready Next.js applications with pre-configured AI and blockchain integrations. Build once, deploy everywhere with enterprise-grade templates.'
+---
+
+## What is Capx Compose?
+
+Capx Compose is an **enterprise-grade scaffolding tool** that:
+- Generates production-ready Next.js 14+ applications in seconds
+- Seamlessly integrates cutting-edge AI and blockchain technologies
+- Provides battle-tested templates with security best practices
+- Includes comprehensive examples and documentation
+- Offers smart dependency management and conflict resolution
+
+## Key Features
+
+- **⚡ Lightning Fast**: Generate full-stack applications in under 30 seconds
+- **🔌 Modular Architecture**: 10+ pre-built plugins with seamless interoperability
+- **🛡️ Enterprise Ready**: Security-first approach with production optimizations
+- **🤖 AI-Native**: Built-in support for LLMs, agents, and AI workflows
+- **⛓️ Multi-Chain**: Support for Solana, EVM, Sui, and more blockchains
+- **📚 Rich Examples**: Every integration includes working, documented code
+
+## Plugin Ecosystem
+
+### AI 
+- **vercel-ai**: Stream-first AI experiences with Vercel AI SDK
+
+### Dev Kits
+- **goat**: Autonomous agents with on-chain capabilities
+- **solana-agent-kit**: Specialized agents for Solana ecosystem
+
+### Blockchain Infrastructure
+- **solana**: Complete Solana dApp toolkit with wallet integration
+- **evm**: Multi-chain EVM support (Ethereum, Polygon, Base, Arbitrum)
+- **sui**: Next-gen blockchain with Move smart contracts
+
+### Data & Backend
+- **supabase**: PostgreSQL with real-time subscriptions and vector embeddings
+- **firebase**: Serverless NoSQL with Firebase ecosystem
+- **vercel-kv**: Edge-optimized Redis-compatible storage
+
+### Authentication
+- **privy**: Seamless Web3 auth with embedded wallets and social login
+
+## Quick Start
+
+```bash
+# Create with interactive CLI
+npx capx-compose@latest my-app
+
+# Or specify plugins directly
+npx capx-compose@latest my-app --plugins=vercel-ai,solana,supabase
+
+# Navigate and configure
+cd my-app
+cp .env.example .env.local
+
+# Launch development server
+npm run dev
+```
+
+## Generated Project Structure
+
+```
+my-app/
+├── src/
+│   ├── app/            # Next.js App Router
+│   ├── components/     # Reusable UI components
+│   ├── lib/           # Core utilities and configs
+│   ├── hooks/         # Custom React hooks
+│   └── styles/        # Global styles and themes
+├── public/            # Static assets
+├── contracts/         # Smart contracts (if applicable)
+├── .env.example       # Environment template
+├── package.json       # Optimized dependencies
+└── README.md         # Custom documentation
+```
+
+## Powerful Combinations
+
+Capx Compose intelligently resolves dependencies and suggests optimal stacks:
+
+### AI-Powered dApps
+- `vercel-ai + solana` - AI-enhanced Solana applications
+- `goat + evm` - Autonomous agents for Ethereum
+- `solana-agent-kit + vercel-kv` - Scalable Solana agents
+
+### Full-Stack Web3
+- `privy + supabase + evm` - Complete Web3 SaaS stack
+- `firebase + solana` - Real-time blockchain applications
+- `vercel-kv + sui` - High-performance Sui dApps
+
+## Why Choose Capx Compose?
+
+### For Developers
+- **Open Source** : Transparent and community driven
+- **10x Faster Setup**: From idea to running app in minutes
+- **Pre-configured Templates**: Everything works out of the box
+- **Type-Safe**: Full TypeScript with strict mode
+- **Best Practices**: ESLint, Prettier, Husky pre-configured
+
+### For Teams
+- **Open Source Contribution** : Extend the SDK by adding your stack with working examples
+- **Consistent Standards**: Unified project structure across teams
+- **Reduced Onboarding**: New developers productive immediately
+- **Maintainable**: Clean architecture with clear separation of concerns
+- **Scalable**: Production-optimized from day one

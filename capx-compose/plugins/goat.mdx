@@ -1,0 +1,159 @@
+---
+title: 'GOAT Agent Toolkit'
+sidebarTitle : 'GOAT'
+icon: 'dungeon'
+description: 'It enables AI agents to interact with blockchain protocols, DeFi platforms, and smart contracts autonomously.'
+---
+
+## Features
+
+- Multi-chain agent support
+- DeFi protocol integrations
+- Wallet management for agents
+- Tool creation framework
+- LLM-agnostic design
+- Transaction simulation
+
+## Quick Start
+
+```bash
+npx capx-compose@latest my-app --plugins= goat
+cd my-app
+npm run dev
+```
+
+## Configuration
+
+```env
+OPENAI_API_KEY=sk-...
+ALCHEMY_API_KEY=your_alchemy_key
+WALLET_PRIVATE_KEY=0x...
+```
+
+## Basic Agent Setup
+
+```typescript
+import { GOAT } from '@goat-sdk/core';
+import { openai } from '@goat-sdk/openai';
+import { ethereum } from '@goat-sdk/ethereum';
+
+const goat = new GOAT({
+  llm: openai({
+    apiKey: process.env.OPENAI_API_KEY,
+    model: 'gpt-4-turbo',
+  }),
+  tools: [
+    ethereum({
+      network: 'mainnet',
+      rpcUrl: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
+      wallet: {
+        privateKey: process.env.WALLET_PRIVATE_KEY,
+      },
+    }),
+  ],
+});
+```
+
+## Creating Custom Tools
+
+```typescript
+import { Tool } from '@goat-sdk/core';
+import { z } from 'zod';
+
+const priceFeedTool: Tool = {
+  name: 'get_token_price',
+  description: 'Get current price of a token',
+  parameters: z.object({
+    symbol: z.string().describe('Token symbol (e.g., ETH, BTC)'),
+    currency: z.string().default('USD'),
+  }),
+  execute: async ({ symbol, currency }) => {
+    const response = await fetch(
+      `https://api.coingecko.com/api/v3/simple/price?ids=${symbol}&vs_currencies=${currency}`
+    );
+    const data = await response.json();
+    return data[symbol.toLowerCase()][currency.toLowerCase()];
+  },
+};
+
+goat.addTool(priceFeedTool);
+```
+
+## DeFi Operations
+
+### Uniswap Integration
+
+```typescript
+import { uniswap } from '@goat-sdk/uniswap';
+
+const uniswapTool = uniswap({
+  network: 'mainnet',
+  version: 'v3',
+  slippage: 0.5, // 0.5%
+});
+
+goat.addTool(uniswapTool);
+
+// Agent can now execute swaps
+const result = await goat.execute(
+  'Swap 0.1 ETH for USDC with minimal slippage'
+);
+```
+
+## Multi-Chain Support
+
+```typescript
+import { ethereum, polygon, arbitrum } from '@goat-sdk/chains';
+
+const multiChainGoat = new GOAT({
+  llm: openai({ apiKey: process.env.OPENAI_API_KEY }),
+  chains: [
+    ethereum({ rpcUrl: process.env.ETH_RPC }),
+    polygon({ rpcUrl: process.env.POLYGON_RPC }),
+    arbitrum({ rpcUrl: process.env.ARBITRUM_RPC }),
+  ],
+});
+
+// Agent can work across chains
+await multiChainGoat.execute(
+  'Bridge 100 USDC from Ethereum to Polygon using the cheapest route'
+);
+```
+
+## Safety Features
+
+```typescript
+const safeGoat = new GOAT({
+  llm: openai({ apiKey: process.env.OPENAI_API_KEY }),
+  safety: {
+    maxTransactionValue: '1000', // Max $1000 per transaction
+    requireConfirmation: true,
+    whitelist: {
+      contracts: ['0x...', '0x...'], // Only interact with these
+      tokens: ['ETH', 'USDC', 'DAI'],
+    },
+    simulateBeforeExecute: true,
+  },
+});
+
+// Set up confirmation handler
+safeGoat.onConfirmationRequired(async (action) => {
+  console.log('Confirmation required for:', action);
+  // Implement user confirmation logic
+  return confirm(`Execute: ${action.description}?`);
+});
+```
+
+## Best Practices
+
+1. **Safety First**: Always use transaction simulation
+2. **Rate Limiting**: Implement proper rate limits for API calls
+3. **Error Recovery**: Build robust error handling
+4. **Monitoring**: Track all agent actions
+5. **Testing**: Thoroughly test on testnets first
+
+## Resources
+
+- [GOAT Documentation](https://docs.goat.dev/)
+- [Example Agents](https://github.com/goat-sdk/examples)
+- [Tool Registry](https://registry.goat.dev/)
